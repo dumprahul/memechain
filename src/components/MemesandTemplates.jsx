@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import Trial from './Trial'; // Make sure the path is correct based on your project structure
+import Wcbox from './Wcbox'; // Make sure the path is correct based on your project structure
 
 const VerticalText = () => {
   const [view, setView] = useState(null);
+  const [wcboxVisible, setWcboxVisible] = useState(false);
+  const [wcboxContent, setWcboxContent] = useState('');
+
+  const handleButtonClick = (content) => {
+    setWcboxContent(content);
+    setWcboxVisible(true);
+  };
+
+  const closeWcbox = () => {
+    setWcboxVisible(false);
+    setWcboxContent('');
+  };
 
   const renderCards = () => {
     const cardCount = view === 'memes' ? 4 : view === 'templates' ? 6 : 0;
@@ -11,14 +24,18 @@ const VerticalText = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Array.from({ length: cardCount }).map((_, index) => (
-          <Trial key={index} buttonText={buttonText} />
+          <Trial
+            key={index}
+            buttonText={buttonText}
+            onButtonClick={() => handleButtonClick(buttonText)}
+          />
         ))}
       </div>
     );
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="relative flex h-screen flex-col">
       <div className="flex justify-center items-center p-4">
         <div className="text-center mt-3">
           <span className="text-3xl">Memes and Templates</span>
@@ -43,6 +60,7 @@ const VerticalText = () => {
           {renderCards()}
         </div>
       </div>
+      {wcboxVisible && <Wcbox content={wcboxContent} onClose={closeWcbox} />}
     </div>
   );
 };
