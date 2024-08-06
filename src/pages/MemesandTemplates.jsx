@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Trial from './Trial'; // Make sure the path is correct based on your project structure
-import Wcbox from './Wcbox'; // Make sure the path is correct based on your project structure
+import Trial from '../components/Trial'; // Make sure the path is correct based on your project structure
+import Wcbox from '../components/Wcbox'; // Make sure the path is correct based on your project structure
 
-const VerticalText = () => {
+const MemesandTemplates = () => {
   const [view, setView] = useState(null);
   const [wcboxVisible, setWcboxVisible] = useState(false);
   const [wcboxContent, setWcboxContent] = useState('');
@@ -65,4 +65,4 @@ const VerticalText = () => {
   );
 };
 
-export default VerticalText;
+export default MemesandTemplates;
