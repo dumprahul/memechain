@@ -5,7 +5,7 @@ import Wcbox from './components/Wcbox';
 const App = () => {
   return (
     <>
-    
+    <Hero />
     <VerticalText />
     </>
   )
