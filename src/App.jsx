@@ -1,11 +1,17 @@
-import React from 'react'
+import VerticalText from './components/MemesandTemplates';
+import Hero from './components/Hero';
+import Wcbox from './components/Wcbox';
 
 const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+    
+    <VerticalText />
+    </>
   )
 }
 
+
 export default App;
+
+
