@@ -7,9 +7,20 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily :{
+        library: ['LibraryRecords', 'sans-serif'],
+        // 'sf-pro': ['"SF Pro Display Bold"', 'sans-serif'],
+      },
+      backgroundImage :{
+        'hero-bg': "url('/src/assets/anime.jpg')",
+      },
+    },
   },
   plugins: [
-    daisyui,
+    daisyui
   ],
+
+ 
+
 }

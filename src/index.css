@@ -4,12 +4,37 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+
+@font-face {
+  font-family: 'LibraryRecords';
+  src: url('./assets/LibraryRecordsRegular-qZW66.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* @font-face {
+  font-family: 'SF Pro Display Bold';
+  src: url('/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+} */
+
+
+
+
+/* :root{
   background-color: #191e24;
   font-family: "Press Start 2P";
   color: white;
 
+} */
+
+#fontf{
+  color: white;
 }
+
+
 
 #wcbox{
   color: black;
