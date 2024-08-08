@@ -70,8 +70,6 @@ const MemeEditor = () => {
     }, 1000); // Small delay to ensure all elements are drawn
   };
 
-
-
   const handleDeleteText = (index) => {
     setTextBoxes(textBoxes.filter((_, i) => i !== index));
   };
@@ -268,6 +266,6 @@ const MemeEditor = () => {
       </div>
     </div>
   );
-};
+}
 
 export default MemeEditor;
