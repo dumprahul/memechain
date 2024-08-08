@@ -11,10 +11,10 @@ const MemeEditor = () => {
 
   const stickerOptions = [
     'src/assets/stickers/blunt_1_optimized.png', // Replace with actual sticker paths
-    'src/assets/stickers/dogedog.png',
-    'src/assets/stickers/laser.png',
-    'src/assets/stickers/sunglass.png',
-    'src/assets/stickers/vibecat.jpg',
+    'src/assets/stickers/dogedog_optimized.png',
+    'src/assets/stickers/laser_1_optimized.png',
+    'src/assets/stickers/sunglass_optimized.png',
+    'src/assets/stickers/vibecat_op.jpg',
   ];
 
   const handleImageUpload = (e) => {
@@ -27,29 +27,41 @@ const MemeEditor = () => {
   };
 
   const handleDownload = () => {
+    const imageElement = document.getElementById('uploadedImage');
+    
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const imageElement = document.getElementById('uploadedImage');
-    canvas.width = imageElement.width;
-    canvas.height = imageElement.height;
-
-    ctx.drawImage(imageElement, 0, 0);
-
+  
+    // Set canvas dimensions to match the actual dimensions of the image
+    const actualWidth = imageElement.naturalWidth;
+    const actualHeight = imageElement.naturalHeight;
+    canvas.width = actualWidth;
+    canvas.height = actualHeight;
+  
+    // Draw the image on the canvas at its natural size
+    ctx.drawImage(imageElement, 0, 0, actualWidth, actualHeight);
+  
+    // Scale factor to adjust positions of text and stickers according to the actual image size
+    const scaleX = actualWidth / imageElement.width;
+    const scaleY = actualHeight / imageElement.height;
+  
+    // Render all text boxes
     textBoxes.forEach((box) => {
-      ctx.font = `${box.fontSize}px ${box.font}`;
+      ctx.font = `${box.fontSize * scaleX}px ${box.font}`;
       ctx.fillStyle = box.color;
       ctx.textAlign = 'center';
-      ctx.fillText(box.text, box.x, box.y + parseInt(box.fontSize));
+      ctx.fillText(box.text, box.x * scaleX, (box.y + parseInt(box.fontSize)) * scaleY);
     });
-
+  
+    // Render all stickers
     stickers.forEach(sticker => {
       const stickerImage = new Image();
       stickerImage.src = sticker.src;
       stickerImage.onload = () => {
-        ctx.drawImage(stickerImage, sticker.x, sticker.y);
+        ctx.drawImage(stickerImage, sticker.x * scaleX, sticker.y * scaleY, stickerImage.width * scaleX, stickerImage.height * scaleY);
       };
     });
-
+  
     setTimeout(() => {
       const link = document.createElement('a');
       link.download = 'meme.png';
@@ -57,6 +69,8 @@ const MemeEditor = () => {
       link.click();
     }, 1000); // Small delay to ensure all elements are drawn
   };
+
+
 
   const handleDeleteText = (index) => {
     setTextBoxes(textBoxes.filter((_, i) => i !== index));
