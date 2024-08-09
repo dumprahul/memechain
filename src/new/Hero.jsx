@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Modal = ({ isOpen, onClose, onSubmit }) => {
+const Hero = () => {
+  const [showPropose, setShowPropose] = useState(false);
+  const [showOldContent, setShowOldContent] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [memeToken, setMemeToken] = useState('');
   const [memeCategory, setMemeCategory] = useState('');
   const [memeDescription, setMemeDescription] = useState('');
   const [tokenPicture, setTokenPicture] = useState(null);
 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    setShowOldContent(false);
+    setTimeout(() => setShowPropose(true), 500);
+  };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ memeToken, memeCategory, memeDescription, tokenPicture });
-    onClose(); // Close the modal after submitting
+    console.log('Submitted Data:', { memeToken, memeCategory, memeDescription, tokenPicture });
+    closeModal(); // Close the modal after submitting
+    navigate('/memes'); // Redirect to Memes page
   };
 
   const modalStyles = {
@@ -78,73 +93,6 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     },
   };
 
-  if (!isOpen) return null;
-
-  return (
-    <div style={modalStyles.overlay}>
-      <div style={modalStyles.content}>
-        <button style={modalStyles.closeButton} onClick={onClose}>✕</button>
-        <h2 style={modalStyles.heading}>Propose Your Meme</h2>
-        <form style={modalStyles.form} onSubmit={handleSubmit}>
-          <label style={modalStyles.label}>
-            Enter meme token:
-            <input
-              type="text"
-              style={modalStyles.input}
-              value={memeToken}
-              onChange={(e) => setMemeToken(e.target.value)}
-            />
-          </label>
-          <label style={modalStyles.label}>
-            Enter meme category:
-            <input
-              type="text"
-              style={modalStyles.input}
-              value={memeCategory}
-              onChange={(e) => setMemeCategory(e.target.value)}
-            />
-          </label>
-          <label style={modalStyles.label}>
-            Enter meme description:
-            <textarea
-              style={modalStyles.input}
-              rows="4"
-              value={memeDescription}
-              onChange={(e) => setMemeDescription(e.target.value)}
-            ></textarea>
-          </label>
-          <label style={modalStyles.label}>
-            Give a token picture:
-            <input
-              type="file"
-              style={modalStyles.input}
-              onChange={(e) => setTokenPicture(e.target.files[0])}
-            />
-          </label>
-          <button type="submit" style={modalStyles.submitButton}>Submit</button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-const Hero = () => {
-  const [showPropose, setShowPropose] = useState(false);
-  const [showOldContent, setShowOldContent] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleClick = () => {
-    setShowOldContent(false);
-    setTimeout(() => setShowPropose(true), 500);
-  };
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
-
-  const handleSubmit = (data) => {
-    console.log('Submitted Data:', data);
-  };
-
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589]">
       {/* Old Content */}
@@ -191,7 +139,52 @@ const Hero = () => {
       )}
 
       {/* Modal */}
-      <Modal isOpen={modalOpen} onClose={closeModal} onSubmit={handleSubmit} />
+      {modalOpen && (
+        <div style={modalStyles.overlay}>
+          <div style={modalStyles.content}>
+            <button style={modalStyles.closeButton} onClick={closeModal}>✕</button>
+            <h2 style={modalStyles.heading}>Propose Your Meme</h2>
+            <form style={modalStyles.form} onSubmit={handleSubmit}>
+              <label style={modalStyles.label}>
+                Enter meme token:
+                <input
+                  type="text"
+                  style={modalStyles.input}
+                  value={memeToken}
+                  onChange={(e) => setMemeToken(e.target.value)}
+                />
+              </label>
+              <label style={modalStyles.label}>
+                Enter meme category:
+                <input
+                  type="text"
+                  style={modalStyles.input}
+                  value={memeCategory}
+                  onChange={(e) => setMemeCategory(e.target.value)}
+                />
+              </label>
+              <label style={modalStyles.label}>
+                Enter meme description:
+                <textarea
+                  style={modalStyles.input}
+                  rows="4"
+                  value={memeDescription}
+                  onChange={(e) => setMemeDescription(e.target.value)}
+                ></textarea>
+              </label>
+              <label style={modalStyles.label}>
+                Give a token picture:
+                <input
+                  type="file"
+                  style={modalStyles.input}
+                  onChange={(e) => setTokenPicture(e.target.files[0])}
+                />
+              </label>
+              <button type="submit" style={modalStyles.submitButton}>Submit</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

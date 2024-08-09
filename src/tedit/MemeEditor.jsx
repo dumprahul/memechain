@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import { Rnd } from 'react-rnd';
 
 const MemeEditor = () => {
-  const [image, setImage] = useState(null);
-  const [textBoxes, setTextBoxes] = useState([]); // State to manage multiple text boxes
-  const [font, setFont] = useState('Arial');
-  const [fontSize, setFontSize] = useState('40');
-  const [textColor, setTextColor] = useState('#FFFFFF'); // Default to white
-  const [stickers, setStickers] = useState([]); // State to manage multiple stickers
+    const [image, setImage] = useState(null);
+    const [textBoxes, setTextBoxes] = useState([]); // State to manage multiple text boxes
+    const [font, setFont] = useState('Bread Coffee'); // Changed to custom font
+    const [fontSize, setFontSize] = useState('40');
+    const [textColor, setTextColor] = useState('#FFFFFF'); // Default to white
+    const [stickers, setStickers] = useState([]);
+
 
   const stickerOptions = [
-    '/stickers/sticker1.png', // Replace with actual sticker paths
-    '/stickers/sticker2.png',
-    '/stickers/sticker3.png',
-    '/stickers/sticker4.png',
-    '/stickers/sticker5.png',
+    'src/assets/stickers/blunt_1_optimized.png', // Replace with actual sticker paths
+    'src/assets/stickers/dogedog_optimized.png',
+    'src/assets/stickers/laser_1_optimized.png',
+    'src/assets/stickers/sunglass_optimized.png',
+    'src/assets/stickers/vibecat_op.jpg',
   ];
 
   const handleImageUpload = (e) => {
@@ -97,11 +98,11 @@ const MemeEditor = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8" style={{ backgroundImage: "url('src/assets/anime.jpg')" }}>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8" style={{ backgroundColor: '#f5f589' }}> {/* Changed to background color */}
       {/* Buttons Container */}
-      <h1 className="text-3xl font-bold mb-6 font-family" id="fontf" >Meme Editor</h1>
+      <h1 className="text-5xl font-bold mb-6" style={{ fontFamily: 'Bread Coffee' }} id="font">Meme Editor ⚒️🔥</h1>
       <div className="flex justify-center items-center space-x-4 mb-4" >
-        <label htmlFor="file-upload" className="btn btn-outline btn-secondary">
+        <label htmlFor="file-upload" className="btn btn-neutral btn-secondary" style={{ fontFamily: 'Bread Coffee' }}>
           Choose File
         </label>
         <input
@@ -112,16 +113,18 @@ const MemeEditor = () => {
           className="hidden"
         />
 
-        <button onClick={addTextBox} className="btn btn-outline btn-secondary">
+        <button onClick={addTextBox} className="btn btn-neutral btn-secondary" style={{ fontFamily: 'Bread Coffee' }}>
           Add Text
         </button>
 
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
-          className="btn btn-outline btn-secondary"
+          className="btn btn-neutral btn-secondary"
+          style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="Arial">Arial</option>
+          <option value="Bread Coffee">Bread Coffee</option>
           <option value="Verdana">Verdana</option>
           <option value="Times New Roman">Times New Roman</option>
           <option value="Courier New">Courier New</option>
@@ -131,7 +134,8 @@ const MemeEditor = () => {
         <select
           value={fontSize}
           onChange={(e) => setFontSize(e.target.value)}
-          className="btn btn-outline btn-secondary"
+          className="btn btn-neutral btn-secondary"
+          style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="20">20</option>
           <option value="30">30</option>
@@ -143,7 +147,8 @@ const MemeEditor = () => {
         <select
           value={textColor}
           onChange={(e) => setTextColor(e.target.value)}
-          className="btn btn-outline btn-secondary"
+          className="btn btn-neutral btn-secondary"
+          style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="#FFFFFF">White</option>
           <option value="#000000">Black</option>
@@ -154,7 +159,8 @@ const MemeEditor = () => {
 
         <select
           onChange={(e) => addSticker(e.target.value)}
-          className="btn btn-outline btn-secondary"
+          className="btn btn-neutral btn-secondary"
+          style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="">Select a sticker</option>
           {stickerOptions.map((stickerPath, index) => (
@@ -167,7 +173,7 @@ const MemeEditor = () => {
         {image && (
           <button
             onClick={handleDownload}
-            className="btn btn-outline btn-secondary"
+            className="btn btn-neutral btn-secondary"
           >
             Download Meme
           </button>
@@ -175,7 +181,7 @@ const MemeEditor = () => {
       </div>
 
       {/* Meme Layout Container */}
-      <div className="flex border-2 border-gray-300 p-8 rounded-lg w-[900px] h-[600px] items-center justify-center"style={{ backgroundImage: "url('src/assets/white-bg.jpg')" }} >
+      <div className="flex border-2 border-gray-300 p-8 rounded-lg w-[900px] h-[600px] items-center justify-center" style={{ backgroundColor: '#ffffff' }}> {/* Changed to background color */}
         {image ? (
           <div className="relative">
             <img

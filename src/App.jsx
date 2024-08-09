@@ -1,22 +1,35 @@
 // src/App.jsx
-import React from 'react';
-import Hero from '../src/new/Hero';
-import Card from './new/components/Card';
-import Memes from './new/Memes';
 
 
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import Hero from '../src/new/Hero';
+// import Memes from '../src/new/Memes';
 
-const App=() => {
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<Hero />} />
+//         <Route path="/memes" element={<Memes />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+import React from 'react'
+import MemeEditor from './tedit/MemeEditor'
+
+const App = () => {
   return (
-    <div className="App">
-      <Memes />
-
-    </div>
-  );
+    <MemeEditor />
+  )
 }
 
-
 export default App;
+
 
 
 
