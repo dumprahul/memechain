@@ -8,55 +8,120 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Pass the values to the parent component or handle them here
     onSubmit({ memeToken, memeCategory, memeDescription, tokenPicture });
     onClose(); // Close the modal after submitting
+  };
+
+  const modalStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      background: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    content: {
+      backgroundColor: 'white',
+      color: 'black',
+      padding: '20px',
+      borderRadius: '8px',
+      width: '80%',
+      maxWidth: '600px',
+      position: 'relative',
+    },
+    closeButton: {
+      position: 'absolute',
+      top: '10px',
+      right: '10px',
+      fontSize: '24px',
+      cursor: 'pointer',
+    },
+    input: {
+      fontFamily: 'Bread Coffee, sans-serif',
+      backgroundColor: 'white',
+      color: 'black',
+      border: '1px solid #ccc',
+      padding: '10px',
+      borderRadius: '4px',
+      width: '100%',
+    },
+    submitButton: {
+      fontFamily: 'Bread Coffee, sans-serif',
+      backgroundColor: '#f5f589',
+      color: 'black',
+      border: 'none',
+      padding: '10px 20px',
+      borderRadius: '4px',
+      cursor: 'pointer',
+      marginTop: '10px',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px',
+    },
+    label: {
+      fontFamily: 'Bread Coffee, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '4px',
+    },
+    heading: {
+      fontFamily: 'Bread Coffee, sans-serif',
+      fontSize: '24px',
+      fontWeight: 'bold',
+      marginBottom: '16px',
+    },
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <h2 className="text-2xl font-bold mb-4">Propose Your Meme</h2>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <label>
+    <div style={modalStyles.overlay}>
+      <div style={modalStyles.content}>
+        <button style={modalStyles.closeButton} onClick={onClose}>✕</button>
+        <h2 style={modalStyles.heading}>Propose Your Meme</h2>
+        <form style={modalStyles.form} onSubmit={handleSubmit}>
+          <label style={modalStyles.label}>
             Enter meme token:
             <input
               type="text"
-              className="modal-input"
+              style={modalStyles.input}
               value={memeToken}
               onChange={(e) => setMemeToken(e.target.value)}
             />
           </label>
-          <label>
+          <label style={modalStyles.label}>
             Enter meme category:
             <input
               type="text"
-              className="modal-input"
+              style={modalStyles.input}
               value={memeCategory}
               onChange={(e) => setMemeCategory(e.target.value)}
             />
           </label>
-          <label>
+          <label style={modalStyles.label}>
             Enter meme description:
             <textarea
-              className="modal-input"
+              style={modalStyles.input}
               rows="4"
               value={memeDescription}
               onChange={(e) => setMemeDescription(e.target.value)}
             ></textarea>
           </label>
-          <label>
+          <label style={modalStyles.label}>
             Give a token picture:
             <input
               type="file"
-              className="modal-input"
+              style={modalStyles.input}
               onChange={(e) => setTokenPicture(e.target.files[0])}
             />
           </label>
-          <button type="submit" className="modal-submit">Submit</button>
+          <button type="submit" style={modalStyles.submitButton}>Submit</button>
         </form>
       </div>
     </div>
@@ -69,8 +134,8 @@ const Hero = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleClick = () => {
-    setShowOldContent(false); // Hide old content
-    setTimeout(() => setShowPropose(true), 500); // Delay to allow old content to fade out
+    setShowOldContent(false);
+    setTimeout(() => setShowPropose(true), 500);
   };
 
   const openModal = () => setModalOpen(true);
@@ -78,7 +143,6 @@ const Hero = () => {
 
   const handleSubmit = (data) => {
     console.log('Submitted Data:', data);
-    // You can now use the data object to process or send the information
   };
 
   return (
