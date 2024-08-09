@@ -1,18 +1,19 @@
 // src/App.jsx
 import React from 'react';
 import Hero from '../src/new/Hero';
+import Card from './new/components/Card';
+import Memes from './new/Memes';
 
 
 
 const App=() => {
   return (
     <div className="App">
-      <Hero />
+      <Memes />
 
     </div>
   );
 }
-
 
 
 export default App;
