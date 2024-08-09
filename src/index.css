@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&family=Judson&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&family=Judson&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,7 +13,7 @@
 }
 
 
-/* @font-face {
+@font-face {
   font-family: 'SF Pro Display Bold';
   src: url('/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
   font-weight: bold;
@@ -30,13 +30,13 @@
 
 } */
 
-#fontf{
+/* #fontf{
   color: white;
 }
 
 
-
-#wcbox{
+/* 
+/* #wcbox{
   color: black;
 }
 
@@ -47,4 +47,78 @@
 #profile{
   color: white;
   font-size: 40px;
+} */
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=YourGoogleFont&display=swap'); 
+@font-face {
+  font-family: 'Bread Coffee';
+  src: url('../src/assets/Bread\ Coffee.ttf') format('truetype');
+};
+
+#font{
+  color: black;
+}
+
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Modal Inputs and Submit Button */
+.modal-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-submit {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-submit:hover {
+  background: #45a049;
 }
