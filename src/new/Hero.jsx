@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose, onSubmit }) => {
+  const [memeToken, setMemeToken] = useState('');
+  const [memeCategory, setMemeCategory] = useState('');
+  const [memeDescription, setMemeDescription] = useState('');
+  const [tokenPicture, setTokenPicture] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Pass the values to the parent component or handle them here
+    onSubmit({ memeToken, memeCategory, memeDescription, tokenPicture });
+    onClose(); // Close the modal after submitting
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -8,22 +20,41 @@ const Modal = ({ isOpen, onClose }) => {
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>✕</button>
         <h2 className="text-2xl font-bold mb-4">Propose Your Meme</h2>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <label>
             Enter meme token:
-            <input type="text" className="modal-input" />
+            <input
+              type="text"
+              className="modal-input"
+              value={memeToken}
+              onChange={(e) => setMemeToken(e.target.value)}
+            />
           </label>
           <label>
             Enter meme category:
-            <input type="text" className="modal-input" />
+            <input
+              type="text"
+              className="modal-input"
+              value={memeCategory}
+              onChange={(e) => setMemeCategory(e.target.value)}
+            />
           </label>
           <label>
             Enter meme description:
-            <textarea className="modal-input" rows="4"></textarea>
+            <textarea
+              className="modal-input"
+              rows="4"
+              value={memeDescription}
+              onChange={(e) => setMemeDescription(e.target.value)}
+            ></textarea>
           </label>
           <label>
             Give a token picture:
-            <input type="file" className="modal-input" />
+            <input
+              type="file"
+              className="modal-input"
+              onChange={(e) => setTokenPicture(e.target.files[0])}
+            />
           </label>
           <button type="submit" className="modal-submit">Submit</button>
         </form>
@@ -44,6 +75,11 @@ const Hero = () => {
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const handleSubmit = (data) => {
+    console.log('Submitted Data:', data);
+    // You can now use the data object to process or send the information
+  };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589]">
@@ -91,7 +127,7 @@ const Hero = () => {
       )}
 
       {/* Modal */}
-      <Modal isOpen={modalOpen} onClose={closeModal} />
+      <Modal isOpen={modalOpen} onClose={closeModal} onSubmit={handleSubmit} />
     </div>
   );
 };

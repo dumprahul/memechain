@@ -49,13 +49,16 @@
   font-size: 40px;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=YourGoogleFont&display=swap'); 
+
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@import url('https://fonts.googleapis.com/css2?family=YourGoogleFont&display=swap'); 
+
 @font-face {
   font-family: 'Bread Coffee';
   src: url('../src/assets/Bread\ Coffee.ttf') format('truetype');
