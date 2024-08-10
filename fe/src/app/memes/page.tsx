@@ -1,8 +1,8 @@
-'use client'
-import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
-import Navbar from '../Navbar'; // Import the Navbar component
-import { useRouter } from 'next/navigation'; // Import useRouter
+"use client";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import Navbar from "../Navbar"; // Import the Navbar component
+import { useRouter } from "next/navigation"; // Import useRouter
 
 export default function Memes() {
   const router = useRouter(); // Initialize the router
@@ -11,25 +11,25 @@ export default function Memes() {
 
   // Define images and texts for each category
   const deadpoolCards = [
-    { title: "Deadpool 1", imageUrl: "/memes/d1.jpg", category: 'Deadpool' },
-    { title: "Deadpool 2", imageUrl: "/memes/d2.jpg", category: 'Deadpool' },
-    { title: "Deadpool 3", imageUrl: "/memes/d3.jpg", category: 'Deadpool' },
+    { title: "Deadpool 1", imageUrl: "/memes/d1.jpg", category: "Deadpool" },
+    { title: "Deadpool 2", imageUrl: "/memes/d2.jpg", category: "Deadpool" },
+    { title: "Deadpool 3", imageUrl: "/memes/d3.jpg", category: "Deadpool" },
   ];
 
   const wolverineCards = [
-    { title: "Wolverine 1", imageUrl: "/memes/w1.jpg", category: 'Wolverine' },
-    { title: "Wolverine 2", imageUrl: "/memes/w2.jpg", category: 'Wolverine' },
-    { title: "Wolverine 3", imageUrl: "/memes/w3.jpg", category: 'Wolverine' },
-    { title: "Wolverine 4", imageUrl: "/memes/w4.jpg", category: 'Wolverine' },
+    { title: "Wolverine 1", imageUrl: "/memes/w1.jpg", category: "Wolverine" },
+    { title: "Wolverine 2", imageUrl: "/memes/w2.jpg", category: "Wolverine" },
+    { title: "Wolverine 3", imageUrl: "/memes/w3.jpg", category: "Wolverine" },
+    { title: "Wolverine 4", imageUrl: "/memes/w4.jpg", category: "Wolverine" },
   ];
 
   const hawkTuatCards = [
-    { title: "Hawk-Tuat 1", imageUrl: "/memes/h1.jpg", category: 'Hawk-Tuat' },
-    { title: "Hawk-Tuat 2", imageUrl: "/memes/h2.jpg", category: 'Hawk-Tuat' },
+    { title: "Hawk-Tuat 1", imageUrl: "/memes/h1.jpg", category: "Hawk-Tuat" },
+    { title: "Hawk-Tuat 2", imageUrl: "/memes/h2.jpg", category: "Hawk-Tuat" },
   ];
 
   const drakeCards = [
-    { title: "Drake 1", imageUrl: "/memes/dk1.jpg", category: 'Drake' },
+    { title: "Drake 1", imageUrl: "/memes/dk1.jpg", category: "Drake" },
   ];
 
   // Combine all categories into a single list
@@ -42,16 +42,18 @@ export default function Memes() {
 
   useEffect(() => {
     // Shuffle and pick a random set of cards
-    const shuffledCards = combinedCards.sort(() => 0.5 - Math.random()).slice(0, 10);
+    const shuffledCards = combinedCards
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 10);
     setAllCards(shuffledCards);
     setDisplayedCards(shuffledCards);
   }, []);
 
   const handleButtonClick = (category: string) => {
-    if (category === 'All') {
+    if (category === "All") {
       setDisplayedCards(allCards);
     } else {
-      setDisplayedCards(allCards.filter(card => card.category === category));
+      setDisplayedCards(allCards.filter((card) => card.category === category));
     }
   };
 
@@ -60,40 +62,32 @@ export default function Memes() {
   };
 
   const handleBackClick = () => {
-    router.push('/hero'); // Redirect to Hero.jsx
+    router.push("/"); // Redirect to Hero.jsx
   };
 
   return (
     <div>
-      {/* Navbar at the top */}
       <Navbar />
-
-      {/* Main content with padding-top to accommodate the fixed Navbar */}
-      <div className="pt-20 flex flex-col items-center h-screen bg-[#f5f589] py-6">
+      <div className="flex flex-col items-center bg-[#f5f589] py-6">
         <div className="flex items-center mb-6">
-          {/* Back Button */}
-          <button
-              onClick={handleBackClick}
-              className="mr-4 p-2"
+          <button onClick={handleBackClick} className="mr-8 p-2">
+            <svg
+              fill="#000000"
+              height="40"
+              width="40"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 219.151 219.151"
             >
-              <svg
-                fill="#000000"
-                height="40"
-                width="40"
-                version="1.1"
-                id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 219.151 219.151"
-              >
-                <g>
-                  <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z"/>
-                  <path d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z"/>
-                </g>
-              </svg>
-            </button>
-          <div className="text-center">
+              <g>
+                <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z" />
+                <path d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z" />
+              </g>
+            </svg>
+          </button>
+          <div className="text-center mr-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black flex items-center">
-
               MEMES AND TEMPLATES 🛠️💣
             </h1>
             <p className="text-lg md:text-2xl max-w-2xl mx-auto text-black">
@@ -105,25 +99,25 @@ export default function Memes() {
         <div className="flex flex-wrap justify-center gap-4 mb-6">
           <button
             className="btn btn-secondary text-white hover:bg-red-600 py-2 px-4 rounded"
-            onClick={() => handleButtonClick('Deadpool')}
+            onClick={() => handleButtonClick("Deadpool")}
           >
             Deadpool
           </button>
           <button
             className="btn btn-secondary text-white hover:bg-yellow-400 py-2 px-4 rounded"
-            onClick={() => handleButtonClick('Wolverine')}
+            onClick={() => handleButtonClick("Wolverine")}
           >
             Wolverine
           </button>
           <button
             className="btn btn-secondary text-white hover:bg-slate-800 py-2 px-4 rounded"
-            onClick={() => handleButtonClick('Hawk-Tuat')}
+            onClick={() => handleButtonClick("Hawk-Tuat")}
           >
             Hawk-Tuat
           </button>
           <button
             className="btn btn-secondary text-white hover:bg-orange-400 py-2 px-4 rounded"
-            onClick={() => handleButtonClick('Drake')}
+            onClick={() => handleButtonClick("Drake")}
           >
             Drake
           </button>

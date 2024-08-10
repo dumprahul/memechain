@@ -1,20 +1,16 @@
-import Link from 'next/link';
-import React, { useState } from 'react';
-import Navbar from '../app/Navbar'; // Import the Navbar component
+import Link from "next/link";
+import React, { useState } from "react";
+import Navbar from "../app/Navbar"; // Import the Navbar component
+import { useUser, useAuthModal } from "@account-kit/react";
 
 const Hero = () => {
-  const [showPropose, setShowPropose] = useState(false);
-  const [showOldContent, setShowOldContent] = useState(true);
+  const user = useUser();
   const [modalOpen, setModalOpen] = useState(false);
   const [memeToken, setMemeToken] = useState("");
   const [memeCategory, setMemeCategory] = useState("");
   const [memeDescription, setMemeDescription] = useState("");
   const [tokenPicture, setTokenPicture] = useState(null);
-
-  const handleClick = () => {
-    setShowOldContent(false);
-    setTimeout(() => setShowPropose(true), 500);
-  };
+  const { openAuthModal } = useAuthModal();
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -32,33 +28,29 @@ const Hero = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589] px-4 py-8">
-      {/* Navbar */}
+    <div className="flex flex-col items-center h-screen bg-[#f5f589] px-4 py-8">
       <Navbar />
-
-      {/* Old Content */}
-      {showOldContent && (
-        <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mt-8">
-          <h1 className="text-3xl md:text-6xl font-bold text-black" >
-            AURA 🔥 CHAIN ⛓️
+      {user == null && (
+        <div className="flex-1 flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mb-16">
+          <h1 className="text-3xl md:text-6xl font-bold text-black">
+            MEME 🔥 CAST ⛓️
           </h1>
           <p className="text-lg md:text-2xl text-center mt-2 text-black">
-            Get your memes attested on-chain and get rewards!
+            On-chain standard for memes in Farcaster
           </p>
-          <button className="btn btn-primary mt-5" onClick={handleClick}>
-            LESSSGOOOO! 🧿
+          <button className="btn btn-primary mt-5" onClick={openAuthModal}>
+            Connect Wallet To Get Started
           </button>
         </div>
       )}
 
-      {/* New Content */}
-      {showPropose && (
-        <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto mt-8">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center" >
+      {user != null && (
+        <div className="flex-1 flex flex-col justify-center items-center max-w-screen-md mx-auto mb-16">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center">
             🏹 Get Started with MemeCast 🚀
           </h2>
           <p className="s md:text-lg text-center mb-6 text-black">
-            Create your own meme token and propose a meme to DAO 🎉
+            Propose, create, and view memes shared on the Farcaster Network
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Link href={"/memes"} className="btn btn-primary">
@@ -77,7 +69,6 @@ const Hero = () => {
         </div>
       )}
 
-      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg">
