@@ -79,13 +79,13 @@ const Hero = () => {
             Propose, create, and view memes shared on the Farcaster Network
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Link href={"/memes"} className="btn btn-primary">
+            <Link href={"/allmemes"} className="btn btn-primary">
               View Memes
             </Link>
             <button className="btn btn-primary" onClick={openModal}>
               Propose Memes
             </button>
-            <Link href={"/memes"} className="btn btn-primary">
+            <Link href={"/templates"} className="btn btn-primary">
               Create Template
             </Link>
             <Link href={"/meme-editor"} className="btn btn-primary">
