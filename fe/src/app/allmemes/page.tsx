@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar"; // Import the Navbar component
+import Navbar from "../../components/Navbar"; // Import the Navbar component
 import { useRouter } from "next/navigation"; // Import useRouter
 
 export default function Memes() {

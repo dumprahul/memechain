@@ -1,16 +1,13 @@
 import { config } from "@/utils/config";
 import { cookieToInitialState } from "@account-kit/core";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import localFont from "next/font/local"
 import { headers } from "next/headers";
 import { Providers } from "./providers";
 import "@/styles/globals.css";
 
-
 export const metadata: Metadata = {
-  title: "Embedded Accounts UI Components Quickstart NextJs Template",
-  description: "Embedded Accounts UI Components Quickstart NextJs Template",
+  title: "MEME 🔥 CAST ⛓️",
+  description: "On-chain standard for memes in Farcaster",
 };
 
 export default function RootLayout({
@@ -26,6 +23,26 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+      </head>
       <body>
         <Providers initialState={initialState}>{children}</Providers>
       </body>
