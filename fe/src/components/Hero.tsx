@@ -2,31 +2,35 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Navbar from "../app/Navbar"; // Import the Navbar component
 import { useUser, useAuthModal } from "@account-kit/react";
+import { PinataSDK } from "pinata";
+
+type ProposalMetadata = {
+  name: string;
+  title: string;
+  description: string;
+  tokenImageUrl: string;
+};
 
 const Hero = () => {
   const user = useUser();
+
+  const [proposalMetadata, setProposalMetadata] = useState<ProposalMetadata>({
+    name: "",
+    title: "",
+    description: "",
+    tokenImageUrl: "",
+  });
+  const [proposalMetadataUrl, setProposalMetadataUrl] = useState<string>("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [memeToken, setMemeToken] = useState("");
-  const [memeCategory, setMemeCategory] = useState("");
-  const [memeDescription, setMemeDescription] = useState("");
-  const [tokenPicture, setTokenPicture] = useState(null);
   const { openAuthModal } = useAuthModal();
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted Data:", {
-      memeToken,
-      memeCategory,
-      memeDescription,
-      tokenPicture,
-    });
-    closeModal(); // Close the modal after submitting
-    // navigate('/memes'); // Redirect to Memes page
-  };
-
+  const pinata = new PinataSDK({
+    pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT!,
+    pinataGateway: "amethyst-impossible-ptarmigan-368.mypinata.cloud",
+  });
   return (
     <div className="flex flex-col items-center h-screen bg-[#f5f589] px-4 py-8">
       <Navbar />
@@ -81,40 +85,91 @@ const Hero = () => {
             <h2 className="text-2xl font-bold mb-4 text-black">
               Propose Your Meme
             </h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const upload = await pinata.upload.json(proposalMetadata);
+                const metadataUrl =
+                  "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+                  upload.IpfsHash +
+                  "?pinataGatewayToken=" +
+                  process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+
+                setProposalMetadataUrl(metadataUrl);
+
+                // TODO: Send transaction to propose meme
+              }}
+            >
               <label className="block text-black">
-                Enter meme token:
+                Enter Meme Name:
                 <input
                   type="text"
                   className="modal-input mt-1 block w-full"
-                  value={memeToken}
-                  onChange={(e) => setMemeToken(e.target.value)}
+                  value={proposalMetadata.name}
+                  onChange={(e) => {
+                    setProposalMetadata({
+                      ...proposalMetadata,
+                      name: e.target.value,
+                    });
+                  }}
                 />
               </label>
               <label className="block text-black">
-                Enter meme category:
+                Enter Proposal Title:
                 <input
                   type="text"
                   className="modal-input mt-1 block w-full"
-                  value={memeCategory}
-                  onChange={(e) => setMemeCategory(e.target.value)}
+                  value={proposalMetadata.title}
+                  onChange={(e) => {
+                    setProposalMetadata({
+                      ...proposalMetadata,
+                      title: e.target.value,
+                    });
+                  }}
                 />
               </label>
               <label className="block text-black">
-                Enter meme description:
+                Enter Proposal Description:
                 <textarea
                   className="modal-input mt-1 block w-full"
-                  rows="4"
-                  value={memeDescription}
-                  onChange={(e) => setMemeDescription(e.target.value)}
+                  rows={4}
+                  value={proposalMetadata.description}
+                  onChange={(e) => {
+                    setProposalMetadata({
+                      ...proposalMetadata,
+                      description: e.target.value,
+                    });
+                  }}
                 ></textarea>
               </label>
               <label className="block text-black">
-                Give a token picture:
+                Upload Meme Token Image:
                 <input
                   type="file"
                   className="modal-input mt-1 block w-full"
-                  onChange={(e) => setTokenPicture(e.target.files[0])}
+                  onChange={async (e) => {
+                    if (e.target == null || e.target.files == null) return;
+                    const file = e.target.files[0];
+
+                    if (file != null) {
+                      const upload = await pinata.upload.file(file);
+                      console.log(
+                        "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+                          upload.IpfsHash +
+                          "?pinataGatewayToken=" +
+                          process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY
+                      );
+                      setProposalMetadata({
+                        ...proposalMetadata,
+                        tokenImageUrl:
+                          "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+                          upload.IpfsHash +
+                          "?pinataGatewayToken=" +
+                          process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY,
+                      });
+                    }
+                  }}
                 />
               </label>
               <button
