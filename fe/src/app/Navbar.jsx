@@ -7,6 +7,7 @@ import {
   useUser,
 } from "@account-kit/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   const { openAuthModal } = useAuthModal();
