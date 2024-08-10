@@ -5,7 +5,7 @@ import {
   useSignerStatus,
   useUser,
 } from "@account-kit/react";
-import Hero from "@/components/Hero"
+import Hero from "@/src/components/Hero"
 
 export default function Home() {
   const user = useUser();

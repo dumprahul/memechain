@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/src/utils/config";
 import { cookieToInitialState } from "@account-kit/core";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
