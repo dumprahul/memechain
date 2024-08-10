@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Rnd } from 'react-rnd';
-import Navbar from '../Navbar';
+import Navbar from '../../components/Navbar';
 import { useSearchParams } from 'next/navigation';
 
 const MemeEditor = () => {

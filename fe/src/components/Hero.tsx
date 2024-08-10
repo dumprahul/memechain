@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import Navbar from "../app/Navbar"; // Import the Navbar component
+import Navbar from "./Navbar"; // Import the Navbar component
 import {
   useUser,
   useAuthModal,
