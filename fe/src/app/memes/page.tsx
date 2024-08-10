@@ -60,7 +60,7 @@ export default function Memes() {
   };
 
   const handleBackClick = () => {
-    router.push('/Hero'); // Redirect to Hero.jsx
+    router.push('/hero'); // Redirect to Hero.jsx
   };
 
   return (
@@ -93,6 +93,7 @@ export default function Memes() {
             </button>
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black flex items-center">
+
               MEMES AND TEMPLATES 🛠️💣
             </h1>
             <p className="text-lg md:text-2xl max-w-2xl mx-auto text-black">
