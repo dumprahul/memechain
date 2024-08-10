@@ -1,34 +1,37 @@
 // src/App.jsx
 
 
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Hero from '../src/new/Hero';
-// import Memes from '../src/new/Memes';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Hero from '../src/new/Hero';
+import Memes from '../src/new/Memes';
+import MemeEditor from './tedit/MemeEditor';
 
-// function App() {
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/memes" element={<Memes />} />
+        <Route path="/meme-editor" element={<MemeEditor />} />
+      </Routes>
+    </Router>
+  );
+}
+
+
+export default App;
+
+// import React from 'react'
+// import MemeEditor from './tedit/MemeEditor'
+
+// const App = () => {
 //   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<Hero />} />
-//         <Route path="/memes" element={<Memes />} />
-//       </Routes>
-//     </Router>
-//   );
+//     <MemeEditor />
+//   )
 // }
 
 // export default App;
-
-import React from 'react'
-import MemeEditor from './tedit/MemeEditor'
-
-const App = () => {
-  return (
-    <MemeEditor />
-  )
-}
-
-export default App;
 
 
 

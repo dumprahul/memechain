@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Rnd } from 'react-rnd';
+import { useLocation } from 'react-router-dom';
 
 const MemeEditor = () => {
-    const [image, setImage] = useState(null);
-    const [textBoxes, setTextBoxes] = useState([]); // State to manage multiple text boxes
-    const [font, setFont] = useState('Bread Coffee'); // Changed to custom font
-    const [fontSize, setFontSize] = useState('40');
-    const [textColor, setTextColor] = useState('#FFFFFF'); // Default to white
-    const [stickers, setStickers] = useState([]);
+  const [image, setImage] = useState(null);
+  const [textBoxes, setTextBoxes] = useState([]);
+  const [font, setFont] = useState('Bread Coffee');
+  const [fontSize, setFontSize] = useState('40');
+  const [textColor, setTextColor] = useState('#FFFFFF');
+  const [stickers, setStickers] = useState([]);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const imageUrl = queryParams.get('image');
+    if (imageUrl) {
+      setImage(decodeURIComponent(imageUrl));
+    }
+  }, [location]);
 
   const stickerOptions = [
-    'src/assets/stickers/blunt_1_optimized.png', // Replace with actual sticker paths
+    'src/assets/stickers/blunt_1_optimized.png',
     'src/assets/stickers/dogedog_optimized.png',
     'src/assets/stickers/laser_1_optimized.png',
     'src/assets/stickers/sunglass_optimized.png',
@@ -98,10 +108,10 @@ const MemeEditor = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8" style={{ backgroundColor: '#f5f589' }}> {/* Changed to background color */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8" style={{ backgroundColor: '#f5f589' }}>
       {/* Buttons Container */}
       <h1 className="text-5xl font-bold mb-6" style={{ fontFamily: 'Bread Coffee' }} id="font">Meme Editor ⚒️🔥</h1>
-      <div className="flex justify-center items-center space-x-4 mb-4" >
+      <div className="flex justify-center items-center space-x-4 mb-4">
         <label htmlFor="file-upload" className="btn btn-neutral btn-secondary" style={{ fontFamily: 'Bread Coffee' }}>
           Choose File
         </label>
@@ -181,7 +191,7 @@ const MemeEditor = () => {
       </div>
 
       {/* Meme Layout Container */}
-      <div className="flex border-2 border-gray-300 p-8 rounded-lg w-[900px] h-[600px] items-center justify-center" style={{ backgroundColor: '#ffffff' }}> {/* Changed to background color */}
+      <div className="flex border-2 border-gray-300 p-8 rounded-lg w-[900px] h-[600px] items-center justify-center" style={{ backgroundColor: '#ffffff' }}>
         {image ? (
           <div className="relative">
             <img
@@ -203,7 +213,7 @@ const MemeEditor = () => {
                   fontFamily: box.font,
                   fontSize: `${box.fontSize}px`,
                   color: box.color,
-                  border: '2px dashed rgba(255, 255, 255, 0.5)', // Transparent border for dragging
+                  border: '2px dashed rgba(255, 255, 255, 0.5)',
                   padding: '8px',
                 }}
               >
@@ -244,11 +254,15 @@ const MemeEditor = () => {
                 }
                 className="absolute"
                 style={{
-                  border: '2px dashed rgba(255, 255, 255, 0.5)', // Transparent border for dragging
+                  border: '2px dashed rgba(255, 255, 255, 0.5)',
                   padding: '8px',
                 }}
               >
-                <img src={sticker.src} alt="Sticker" className="max-w-full max-h-full" />
+                <img
+                  src={sticker.src}
+                  alt="sticker"
+                  className="max-w-full max-h-full"
+                />
                 <button
                   onClick={() => handleDeleteSticker(index)}
                   className="btn btn-outline btn-secondary"
@@ -259,7 +273,7 @@ const MemeEditor = () => {
             ))}
           </div>
         ) : (
-          <div className="text-gray-400">No image uploaded yet</div>
+          <p className="text-lg">No image selected</p>
         )}
       </div>
     </div>
