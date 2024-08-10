@@ -1,0 +1,1 @@
+exports.deployMemecast=require("./deployMemecast")
