@@ -1,22 +1,21 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import { Rnd } from 'react-rnd';
+"use client";
+import React, { useState, useEffect } from "react";
+import { Rnd } from "react-rnd";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
   const [textBoxes, setTextBoxes] = useState([]);
-  const [font, setFont] = useState('Bread Coffee');
-  const [fontSize, setFontSize] = useState('40');
-  const [textColor, setTextColor] = useState('#FFFFFF');
+  const [font, setFont] = useState("Bread Coffee");
+  const [fontSize, setFontSize] = useState("40");
+  const [textColor, setTextColor] = useState("#FFFFFF");
   const [stickers, setStickers] = useState([]);
 
-
   const stickerOptions = [
-    'src/assets/stickers/blunt_1_optimized.png',
-    'src/assets/stickers/dogedog_optimized.png',
-    'src/assets/stickers/laser_1_optimized.png',
-    'src/assets/stickers/sunglass_optimized.png',
-    'src/assets/stickers/vibecat_op.jpg',
+    "src/assets/stickers/blunt_1_optimized.png",
+    "src/assets/stickers/dogedog_optimized.png",
+    "src/assets/stickers/laser_1_optimized.png",
+    "src/assets/stickers/sunglass_optimized.png",
+    "src/assets/stickers/vibecat_op.jpg",
   ];
 
   const handleImageUpload = (e) => {
@@ -29,10 +28,10 @@ const MemeEditor = () => {
   };
 
   const handleDownload = () => {
-    const imageElement = document.getElementById('uploadedImage');
-  
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const imageElement = document.getElementById("uploadedImage");
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     const actualWidth = imageElement.naturalWidth;
     const actualHeight = imageElement.naturalHeight;
@@ -47,21 +46,31 @@ const MemeEditor = () => {
     textBoxes.forEach((box) => {
       ctx.font = `${box.fontSize * scaleX}px ${box.font}`;
       ctx.fillStyle = box.color;
-      ctx.textAlign = 'center';
-      ctx.fillText(box.text, box.x * scaleX, (box.y + parseInt(box.fontSize)) * scaleY);
+      ctx.textAlign = "center";
+      ctx.fillText(
+        box.text,
+        box.x * scaleX,
+        (box.y + parseInt(box.fontSize)) * scaleY
+      );
     });
 
-    stickers.forEach(sticker => {
+    stickers.forEach((sticker) => {
       const stickerImage = new Image();
       stickerImage.src = sticker.src;
       stickerImage.onload = () => {
-        ctx.drawImage(stickerImage, sticker.x * scaleX, sticker.y * scaleY, stickerImage.width * scaleX, stickerImage.height * scaleY);
+        ctx.drawImage(
+          stickerImage,
+          sticker.x * scaleX,
+          sticker.y * scaleY,
+          stickerImage.width * scaleX,
+          stickerImage.height * scaleY
+        );
       };
     });
 
     setTimeout(() => {
-      const link = document.createElement('a');
-      link.download = 'meme.png';
+      const link = document.createElement("a");
+      link.download = "meme.png";
       link.href = canvas.toDataURL();
       link.click();
     }, 1000);
@@ -83,7 +92,7 @@ const MemeEditor = () => {
     setTextBoxes([
       ...textBoxes,
       {
-        text: '',
+        text: "",
         x: 0,
         y: 0,
         font: font,
@@ -94,18 +103,26 @@ const MemeEditor = () => {
   };
 
   const updateTextBox = (index, updatedBox) => {
-    const updatedTextBoxes = textBoxes.map((box, i) => (i === index ? updatedBox : box));
+    const updatedTextBoxes = textBoxes.map((box, i) =>
+      i === index ? updatedBox : box
+    );
     setTextBoxes(updatedTextBoxes);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
+    <div
+      className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100"
+      style={{ backgroundColor: "#f5f589" }}
+    >
       {/* Buttons Container */}
-      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black"    >
-       LETSF MEME CASTTTT ⚒️🔥
+      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black">
+        LETSF MEME CASTTTT ⚒️🔥
       </h1>
       <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-        <label htmlFor="file-upload" className="btn px-4 py-2 text-sm md:text-base"    >
+        <label
+          htmlFor="file-upload"
+          className="btn btn-secondary px-4 py-2 text-sm md:text-base"
+        >
           Choose File
         </label>
         <input
@@ -116,15 +133,17 @@ const MemeEditor = () => {
           className="hidden"
         />
 
-        <button onClick={addTextBox} className="btn px-4 py-2 text-sm md:text-base"    >
+        <button
+          onClick={addTextBox}
+          className="btn btn-primary px-4 py-2 text-sm md:text-base"
+        >
           Add Text
         </button>
 
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
+          className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
         >
           <option value="Arial">Arial</option>
           <option value="Bread Coffee">Bread Coffee</option>
@@ -137,8 +156,7 @@ const MemeEditor = () => {
         <select
           value={fontSize}
           onChange={(e) => setFontSize(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
+          className="btn btn-primary px-4 py-2 text-sm md:text-base"
         >
           <option value="20">20</option>
           <option value="30">30</option>
@@ -150,8 +168,7 @@ const MemeEditor = () => {
         <select
           value={textColor}
           onChange={(e) => setTextColor(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
+          className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
         >
           <option value="#FFFFFF">White</option>
           <option value="#000000">Black</option>
@@ -162,8 +179,7 @@ const MemeEditor = () => {
 
         <select
           onChange={(e) => addSticker(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
+          className="btn btn-primary px-4 py-2 text-sm md:text-base"
         >
           <option value="">Select a sticker</option>
           {stickerOptions.map((stickerPath, index) => (
@@ -176,7 +192,7 @@ const MemeEditor = () => {
         {image && (
           <button
             onClick={handleDownload}
-            className="btn px-4 py-2 text-sm md:text-base"
+            className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
           >
             Download Meme
           </button>
@@ -206,8 +222,8 @@ const MemeEditor = () => {
                   fontFamily: box.font,
                   fontSize: `${box.fontSize}px`,
                   color: box.color,
-                  border: '2px dashed rgba(255, 255, 255, 0.5)',
-                  padding: '8px',
+                  border: "2px dashed rgba(255, 255, 255, 0.5)",
+                  padding: "8px",
                 }}
               >
                 <div>
@@ -221,9 +237,9 @@ const MemeEditor = () => {
                       fontFamily: box.font,
                       fontSize: `${box.fontSize}px`,
                       color: box.color,
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      outline: 'none',
+                      backgroundColor: "transparent",
+                      border: "none",
+                      outline: "none",
                     }}
                   />
                   <button
@@ -241,14 +257,16 @@ const MemeEditor = () => {
                 bounds="parent"
                 position={{ x: sticker.x, y: sticker.y }}
                 onDragStop={(e, d) =>
-                  setStickers(stickers.map((s, i) =>
-                    i === index ? { ...s, x: d.x, y: d.y } : s
-                  ))
+                  setStickers(
+                    stickers.map((s, i) =>
+                      i === index ? { ...s, x: d.x, y: d.y } : s
+                    )
+                  )
                 }
                 className="absolute"
                 style={{
-                  border: '2px dashed rgba(255, 255, 255, 0.5)',
-                  padding: '8px',
+                  border: "2px dashed rgba(255, 255, 255, 0.5)",
+                  padding: "8px",
                 }}
               >
                 <img

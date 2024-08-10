@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import React, { useState } from 'react';
+import Link from "next/link";
+import React, { useState } from "react";
 
 const Hero = () => {
   const [showPropose, setShowPropose] = useState(false);
   const [showOldContent, setShowOldContent] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [memeToken, setMemeToken] = useState('');
-  const [memeCategory, setMemeCategory] = useState('');
-  const [memeDescription, setMemeDescription] = useState('');
+  const [memeToken, setMemeToken] = useState("");
+  const [memeCategory, setMemeCategory] = useState("");
+  const [memeDescription, setMemeDescription] = useState("");
   const [tokenPicture, setTokenPicture] = useState(null);
 
   const handleClick = () => {
@@ -20,7 +20,12 @@ const Hero = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted Data:', { memeToken, memeCategory, memeDescription, tokenPicture });
+    console.log("Submitted Data:", {
+      memeToken,
+      memeCategory,
+      memeDescription,
+      tokenPicture,
+    });
     closeModal(); // Close the modal after submitting
     // navigate('/memes'); // Redirect to Memes page
   };
@@ -30,16 +35,13 @@ const Hero = () => {
       {/* Old Content */}
       {showOldContent && (
         <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto">
-          <h1 className="text-3xl md:text-6xl font-bold text-black" >
+          <h1 className="text-3xl md:text-6xl font-bold text-black">
             AURA 🔥 CHAIN ⛓️
           </h1>
-          <p className="text-lg md:text-2xl text-center mt-2 text-black" >
+          <p className="text-lg md:text-2xl text-center mt-2 text-black">
             Get your memes attested on-chain and get rewards!
           </p>
-          <button
-            className="btn mt-5"
-            onClick={handleClick}
-          >
+          <button className="btn btn-primary mt-5" onClick={handleClick}>
             LESSSGOOOO! 🧿
           </button>
         </div>
@@ -48,23 +50,23 @@ const Hero = () => {
       {/* New Content */}
       {showPropose && (
         <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center" >
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center">
             🏹 Get's Started with MemeCast 🚀
           </h2>
-          <p className="s md:text-lg text-center mb-6 text-black" >
+          <p className="s md:text-lg text-center mb-6 text-black">
             Create your own meme token and propose a meme to DAO 🎉
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Link href={'/memes'} className="btn btn-default">
+            <Link href={"/memes"} className="btn btn-primary">
               View Memes
             </Link>
-            <button className="btn btn-default" onClick={openModal}>
+            <button className="btn btn-primary" onClick={openModal}>
               Propose Memes
             </button>
-            <Link  href={'/memes'}  className="btn btn-default">
+            <Link href={"/memes"} className="btn btn-primary">
               Create Template
             </Link>
-            <Link  href={'/meme-editor'}  className="btn btn-default" >
+            <Link href={"/meme-editor"} className="btn btn-primary">
               Create Meme
             </Link>
           </div>
@@ -75,8 +77,15 @@ const Hero = () => {
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg">
-            <button className="absolute top-4 right-4 text-xl" onClick={closeModal}>✕</button>
-            <h2 className="text-2xl font-bold mb-4 text-black">Propose Your Meme</h2>
+            <button
+              className="absolute top-4 right-4 text-xl"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+            <h2 className="text-2xl font-bold mb-4 text-black">
+              Propose Your Meme
+            </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <label className="block text-black">
                 Enter meme token:
@@ -113,7 +122,13 @@ const Hero = () => {
                   onChange={(e) => setTokenPicture(e.target.files[0])}
                 />
               </label>
-              <button type="submit" className="btn btn-primary mt-4 w-full" style={{ backgroundColor: '#f5f589', color: '#000' }}>Submit</button>
+              <button
+                type="submit"
+                className="btn btn-primary mt-4 w-full"
+                style={{ backgroundColor: "#f5f589", color: "#000" }}
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
