@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const Hero = () => {
@@ -54,18 +55,18 @@ const Hero = () => {
             Create your own meme token and propose a meme to DAO 🎉
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <button className="btn btn-default">
+            <Link href={'/memes'} className="btn btn-default">
               View Memes
-            </button>
+            </Link>
             <button className="btn btn-default" onClick={openModal}>
-              Proposed Memes
+              Propose Memes
             </button>
-            <button className="btn btn-default">
+            <Link  href={'/memes'}  className="btn btn-default">
               Create Template
-            </button>
-            <button className="btn btn-default" >
+            </Link>
+            <Link  href={'/meme-editor'}  className="btn btn-default" >
               Create Meme
-            </button>
+            </Link>
           </div>
         </div>
       )}

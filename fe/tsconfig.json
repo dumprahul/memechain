@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/Fixtures/FixtureCard"
-  ],
+, "src/app/meme-editor/page.jsx"  ],
   "exclude": ["node_modules"]
 }
