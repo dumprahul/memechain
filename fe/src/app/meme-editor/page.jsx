@@ -101,11 +101,11 @@ const MemeEditor = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
       {/* Buttons Container */}
-      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black">
-       LETS MEME CASTTTT ⚒️🔥
+      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black"    >
+       LETSF MEME CASTTTT ⚒️🔥
       </h1>
       <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-        <label htmlFor="file-upload" className="btn  px-4 py-2 text-sm md:text-base" >
+        <label htmlFor="file-upload" className="btn px-4 py-2 text-sm md:text-base"    >
           Choose File
         </label>
         <input
@@ -116,15 +116,15 @@ const MemeEditor = () => {
           className="hidden"
         />
 
-        <button onClick={addTextBox} className="btn     px-4 py-2 text-sm md:text-base"   >
+        <button onClick={addTextBox} className="btn px-4 py-2 text-sm md:text-base"    >
           Add Text
         </button>
 
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
-          className="btn     px-4 py-2 text-sm md:text-base"
-            
+          className="btn px-4 py-2 text-sm md:text-base"
+             
         >
           <option value="Arial">Arial</option>
           <option value="Bread Coffee">Bread Coffee</option>
@@ -137,8 +137,8 @@ const MemeEditor = () => {
         <select
           value={fontSize}
           onChange={(e) => setFontSize(e.target.value)}
-          className="btn     px-4 py-2 text-sm md:text-base"
-            
+          className="btn px-4 py-2 text-sm md:text-base"
+             
         >
           <option value="20">20</option>
           <option value="30">30</option>
@@ -150,8 +150,8 @@ const MemeEditor = () => {
         <select
           value={textColor}
           onChange={(e) => setTextColor(e.target.value)}
-          className="btn     px-4 py-2 text-sm md:text-base"
-            
+          className="btn px-4 py-2 text-sm md:text-base"
+             
         >
           <option value="#FFFFFF">White</option>
           <option value="#000000">Black</option>
@@ -162,8 +162,8 @@ const MemeEditor = () => {
 
         <select
           onChange={(e) => addSticker(e.target.value)}
-          className="btn     px-4 py-2 text-sm md:text-base"
-            
+          className="btn px-4 py-2 text-sm md:text-base"
+             
         >
           <option value="">Select a sticker</option>
           {stickerOptions.map((stickerPath, index) => (
@@ -176,7 +176,7 @@ const MemeEditor = () => {
         {image && (
           <button
             onClick={handleDownload}
-            className="btn     px-4 py-2 text-sm md:text-base"
+            className="btn px-4 py-2 text-sm md:text-base"
           >
             Download Meme
           </button>
@@ -266,7 +266,7 @@ const MemeEditor = () => {
             ))}
           </div>
         ) : (
-          <p className="text-lg">No image selected</p>
+          <p className="text-lg text-gray-500">No image selected</p>
         )}
       </div>
     </div>
