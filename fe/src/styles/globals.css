@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,7 +16,16 @@
   }
 }
 
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('/fonts/BreadCoffee.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 body {
+  font-family: 'MyCustomFont', sans-serif;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -29,10 +39,6 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-#font{
-  color: black;
 }
 
 /* Modal Overlay */
