@@ -1,7 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("hardhat-dependency-compiler");
 require("hardhat-contract-sizer");
-require("./tasks");
 const { networks } = require("./networks");
 
 const REPORT_GAS =
