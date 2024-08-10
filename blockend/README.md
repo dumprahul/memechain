@@ -17,8 +17,7 @@ npx hardhat verify --network auraChain 0xd37ca03a13bD2725306Fec4071855EE556037e2
 
 1. Deploy Aurachain contracts - DONE
 2. Rendering composer actions and integrate Aurachain Contract calls in the frontend - PENDING 
-3. Test and Deploy Base contracts - PENDING
-4. Establish crosschain link from Aurachain to Base - PENDING
+3. Setup Supabase - PENDING
 5. Rendering farcaster frames - PENDING
 6. Test whole flow - PENDING
 
