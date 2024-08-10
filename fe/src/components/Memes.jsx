@@ -47,10 +47,10 @@ const Memes = () => {
   return (
     <div className="flex flex-col items-center h-screen bg-[#f5f589] py-10">
       <div className="flex flex-col items-center mb-8">
-        <h1 className="text-6xl font-bold mb-4" style={{ fontFamily: 'Bread Coffee' }} id='font'>
+        <h1 className="text-6xl font-bold mb-4"   id='font'>
           MEMES AND TEMPLATES
         </h1>
-        <p className="text-center text-2xl max-w-2xl" style={{ fontFamily: 'Bread Coffee' }} id='font'>
+        <p className="text-center text-2xl max-w-2xl"   id='font'>
           Edit or Create memes on your own with MemeCast!
         </p>
       </div>
@@ -58,28 +58,28 @@ const Memes = () => {
       <div className="flex justify-center space-x-4 mb-8 mt-10">
         <button
           className="btn"
-          style={{ fontFamily: 'Bread Coffee' }}
+           
           onClick={() => handleButtonClick(deadpoolCards)}
         >
           Deadpool
         </button>
         <button
           className="btn"
-          style={{ fontFamily: 'Bread Coffee' }}
+           
           onClick={() => handleButtonClick(wolverineCards)}
         >
           Wolverine
         </button>
         <button
           className="btn"
-          style={{ fontFamily: 'Bread Coffee' }}
+           
           onClick={() => handleButtonClick(hawkTuatCards)}
         >
           Hawk-Tuat
         </button>
         <button
           className="btn"
-          style={{ fontFamily: 'Bread Coffee' }}
+           
           onClick={() => handleButtonClick(drakeCards)}
         >
           Drake
@@ -101,7 +101,7 @@ const Memes = () => {
               />
             </figure>
             <div className="card-body flex flex-col items-center justify-center p-4">
-              <h2 className="card-title text-center mb-4" style={{ fontFamily: 'Bread Coffee' }}>
+              <h2 className="card-title text-center mb-4"  >
                 {card.title}
               </h2>
             </div>
