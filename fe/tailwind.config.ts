@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import daisyui from "daisyui"
+
 import { withAccountKitUi } from "@account-kit/react/tailwind";
 
 export default withAccountKitUi({
@@ -8,7 +11,17 @@ export default withAccountKitUi({
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily :{
+        library: ['LibraryRecords', 'sans-serif'],
+        // 'sf-pro': ['"SF Pro Display Bold"', 'sans-serif'],
+      },
+      backgroundImage :{
+        'hero-bg': "url('/assets/anime.jpg')",
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    daisyui
+  ],
 });
