@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-import daisyui from "daisyui"
-
 import { withAccountKitUi } from "@account-kit/react/tailwind";
 
 export default withAccountKitUi({
@@ -20,7 +18,5 @@ export default withAccountKitUi({
       },
     },
   },
-  plugins: [
-    daisyui
-  ],
+
 });
