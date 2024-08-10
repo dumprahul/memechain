@@ -1,12 +1,9 @@
 import { config } from "@/utils/config";
 import { cookieToInitialState } from "@account-kit/core";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { Providers } from "./providers";
 import "@/styles/globals.css";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "MEME 🔥 CAST ⛓️",
@@ -26,9 +23,26 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <Head>
+      <head>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+      </head>
       <body>
         <Providers initialState={initialState}>{children}</Providers>
       </body>
