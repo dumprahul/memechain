@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Navbar from "../app/Navbar"; // Import the Navbar component
-import { useUser } from "@account-kit/react";
+import { useUser, useAuthModal } from "@account-kit/react";
 
 const Hero = () => {
   const user = useUser();
@@ -10,6 +10,7 @@ const Hero = () => {
   const [memeCategory, setMemeCategory] = useState("");
   const [memeDescription, setMemeDescription] = useState("");
   const [tokenPicture, setTokenPicture] = useState(null);
+  const { openAuthModal } = useAuthModal();
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -35,25 +36,24 @@ const Hero = () => {
       {user == null && (
         <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mt-8">
           <h1 className="text-3xl md:text-6xl font-bold text-black">
-            AURA 🔥 CHAIN ⛓️
+            MEME 🔥 CAST ⛓️
           </h1>
           <p className="text-lg md:text-2xl text-center mt-2 text-black">
-            Get your memes attested on-chain and get rewards!
+            On-chain standard for memes in Farcaster
           </p>
-          <button className="btn btn-primary mt-5" onClick={handleClick}>
+          <button className="btn btn-primary mt-5" onClick={openAuthModal}>
             Connect Wallet To Get Started
           </button>
         </div>
       )}
 
-      {/* New Content */}
       {user != null && (
         <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto mt-8">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center">
             🏹 Get Started with MemeCast 🚀
           </h2>
           <p className="s md:text-lg text-center mb-6 text-black">
-            Create your own meme token and propose a meme to DAO 🎉
+            Propose, create, and view memes shared on the Farcaster Network
           </p>
           <div className="grid grid-cols-2 gap-4">
             <Link href={"/memes"} className="btn btn-primary">
