@@ -9,8 +9,8 @@ import "@/styles/globals.css";
 
 
 export const metadata: Metadata = {
-  title: "Embedded Accounts UI Components Quickstart NextJs Template",
-  description: "Embedded Accounts UI Components Quickstart NextJs Template",
+  title: "MEME 🔥 CAST ⛓️",
+  description: "On-chain standard for memes in Farcaster",
 };
 
 export default function RootLayout({

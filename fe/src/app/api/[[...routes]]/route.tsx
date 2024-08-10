@@ -17,14 +17,14 @@ app.composerAction(
   (c) => {
     return c.res({
       title: 'Memecast',
-      url: 'https://memecast.vercel.app/'
+      url: 'https://meme-cast.vercel.app/'
     });
   },
   {
     name: 'Memecast Composer action',
     description: 'On-chain standard for memes in Farcaster',
     icon: 'image',
-    imageUrl: 'https://memecast.vercel.app/logo-two.png'
+    imageUrl: 'https://meme-cast.vercel.app/logo-two.png'
   }
 );
 
