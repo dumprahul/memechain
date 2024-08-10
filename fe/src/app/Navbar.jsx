@@ -14,7 +14,7 @@ const Navbar = () => {
   const { logout } = useLogout();
   const user = useUser();
   return (
-    <div className=" bg-[#f5f589] w-full z-10 py-4 flex justify-between items-center">
+    <div className=" bg-[#f5f589] w-full z-10 flex justify-between items-center">
       <Link href='/' className="flex space-x-2 my-auto ml-6">
         <Image src="/logo-one.png" alt="logo" width={50} height={50} />{" "}
         <p className="text-xl text-black my-auto" id="font">
