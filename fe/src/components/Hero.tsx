@@ -1,11 +1,19 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Navbar from "../app/Navbar"; // Import the Navbar component
-import { useUser, useAuthModal } from "@account-kit/react";
+import {
+  useUser,
+  useAuthModal,
+  useSmartAccountClient,
+  useSendUserOperation,
+} from "@account-kit/react";
 import { PinataSDK } from "pinata";
+import { MEMECAST_ADDRESS } from "@/utils/constants";
+import getCreateMemeProposalData from "@/utils/getCreateMemeProposalData";
 
 type ProposalMetadata = {
   name: string;
+  symbol: string;
   title: string;
   description: string;
   tokenImageUrl: string;
@@ -13,9 +21,11 @@ type ProposalMetadata = {
 
 const Hero = () => {
   const user = useUser();
+  const { client } = useSmartAccountClient({ type: "LightAccount" });
 
   const [proposalMetadata, setProposalMetadata] = useState<ProposalMetadata>({
     name: "",
+    symbol: "",
     title: "",
     description: "",
     tokenImageUrl: "",
@@ -23,7 +33,19 @@ const Hero = () => {
   const [proposalMetadataUrl, setProposalMetadataUrl] = useState<string>("");
   const [modalOpen, setModalOpen] = useState(false);
   const { openAuthModal } = useAuthModal();
-
+  const [txHash, setTxHash] = useState<string | null>(null);
+  const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
+    client,
+    waitForTxn: true,
+    onSuccess: ({ hash, request }) => {
+      console.log("Transaction sent: ", hash);
+      setTxHash(hash);
+    },
+    onError: (error) => {
+      console.log("ERROR");
+      console.log(error);
+    },
+  });
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
@@ -97,24 +119,51 @@ const Hero = () => {
                   process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
 
                 setProposalMetadataUrl(metadataUrl);
-
-                // TODO: Send transaction to propose meme
+                const data = getCreateMemeProposalData(
+                  proposalMetadata.name,
+                  proposalMetadata.symbol,
+                  metadataUrl
+                );
+                sendUserOperation({
+                  uo: {
+                    target: MEMECAST_ADDRESS as `0x${string}`,
+                    data: data,
+                    value: BigInt("0"),
+                  },
+                });
               }}
             >
-              <label className="block text-black">
-                Enter Meme Name:
-                <input
-                  type="text"
-                  className="modal-input mt-1 block w-full"
-                  value={proposalMetadata.name}
-                  onChange={(e) => {
-                    setProposalMetadata({
-                      ...proposalMetadata,
-                      name: e.target.value,
-                    });
-                  }}
-                />
-              </label>
+              <div className="flex space-x-3">
+                {" "}
+                <label className="block text-black">
+                  Enter Meme Name:
+                  <input
+                    type="text"
+                    className="modal-input mt-1 block w-full"
+                    value={proposalMetadata.name}
+                    onChange={(e) => {
+                      setProposalMetadata({
+                        ...proposalMetadata,
+                        name: e.target.value,
+                      });
+                    }}
+                  />
+                </label>{" "}
+                <label className="block text-black">
+                  Enter Meme Symbol:
+                  <input
+                    type="text"
+                    className="modal-input mt-1 block w-full"
+                    value={proposalMetadata.symbol}
+                    onChange={(e) => {
+                      setProposalMetadata({
+                        ...proposalMetadata,
+                        symbol: e.target.value,
+                      });
+                    }}
+                  />
+                </label>
+              </div>
               <label className="block text-black">
                 Enter Proposal Title:
                 <input
