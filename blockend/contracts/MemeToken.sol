@@ -12,7 +12,7 @@ contract MemeToken is ERC20 {
     string public metadata;
     
     constructor(string memory _name, string memory _symbol, string memory _metadata)
-        ERC20(name, symbol)
+        ERC20(_name, _symbol)
     {
         core=msg.sender;
         metadata=_metadata;
