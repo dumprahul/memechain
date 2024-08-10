@@ -10,19 +10,7 @@ if (PRIVATE_KEY) {
 }
 
 const networks = {
-  ethereumSepolia: {
-    url:
-      "https://eth-sepolia.g.alchemy.com/v2/" +
-      process.env.ALCHEMY_API_KEY_SEPOLIA,
-    gasPrice: undefined,
-    nonce: undefined,
-    accounts,
-    verifyApiKey: process.env.ETHERSCAN_API_KEY || "UNSET",
-    chainId: 11155111,
-    confirmations: DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
-    nativeCurrencySymbol: "ETH",
-    privCastDeployment: "",
-  },
+ 
   baseSepolia: {
     url:
       "https://base-sepolia.g.alchemy.com/v2/" +
@@ -34,21 +22,21 @@ const networks = {
     chainId: 84532,
     confirmations: DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
     nativeCurrencySymbol: "ETH",
-    privCastDeployment: "",
+    chainlinkVerifier: "",
   },
-  arbitrumSepolia: {
+  auraChain:{
     url:
-      "https://arb-sepolia.g.alchemy.com/v2/" +
-      process.env.ALCHEMY_API_KEY_BASE,
-    gasPrice: undefined,
-    nonce: undefined,
-    accounts,
-    verifyApiKey: process.env.ARBISCAN_API_KEY || "UNSET",
-    chainId: 421614,
-    confirmations: DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
-    nativeCurrencySymbol: "ETH",
-    privCastDeployment: "",
-  },
+    "https://rpc-aurachain-kooclv2ptj.t.conduit.xyz",
+  gasPrice: undefined,
+  nonce: undefined,
+  accounts,
+  verifyApiKey: process.env.BASESCAN_API_KEY || "UNSET",
+  chainId: 88759,
+  confirmations: DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
+  nativeCurrencySymbol: "ETH",
+  memeCastDeployment:""
+  }
+  
 };
 
 module.exports = {
