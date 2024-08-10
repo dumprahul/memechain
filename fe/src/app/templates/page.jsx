@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation"; // Import useRouter
 
 export default function Memes() {
   const router = useRouter(); // Initialize the router
-  const [allCards, setAllCards] = useState<any[]>([]);
-  const [displayedCards, setDisplayedCards] = useState<any[]>([]);
+  const [allCards, setAllCards] = useState([]);
+  const [displayedCards, setDisplayedCards] = useState([]);
 
   // Define images and texts for each category
   const deadpoolCards = [
@@ -49,7 +49,7 @@ export default function Memes() {
     setDisplayedCards(shuffledCards);
   }, []);
 
-  const handleButtonClick = (category: string) => {
+  const handleButtonClick = (category) => {
     if (category === "All") {
       setDisplayedCards(allCards);
     } else {
@@ -57,8 +57,9 @@ export default function Memes() {
     }
   };
 
-  const handleCardClick = (imageUrl: string) => {
-    // Handle card click event here
+  const handleCardClick = (imageUrl) => {
+    // Route to MemeEditor with the image URL as a query parameter
+    router.push(`/meme-editor?imageUrl=${encodeURIComponent(imageUrl)}`);
   };
 
   const handleBackClick = () => {
@@ -88,10 +89,10 @@ export default function Memes() {
           </button>
           <div className="text-center mr-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black flex items-center">
-             MEMES 🛠️💣
+             TEMPLATES 🛠️💣
             </h1>
             <p className="text-lg md:text-2xl max-w-2xl mx-auto text-black">
-              Get to know some memes made on MEMECAST!
+              Make your memes asap with these templates!
             </p>
           </div>
         </div>
@@ -124,11 +125,11 @@ export default function Memes() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 overflow-y-auto py-4 w-full max-w-screen-lg">
-          {displayedCards.map((card: any, index: number) => (
+          {displayedCards.map((card, index) => (
             <button
               key={index}
               className="bg-gray-600 image-full w-full shadow-xl border border-black flex flex-col items-center justify-center"
-              onClick={() => handleCardClick(card.imageUrl)} // Update to handle click
+              onClick={() => handleCardClick(card.imageUrl)}
             >
               <figure>
                 <Image

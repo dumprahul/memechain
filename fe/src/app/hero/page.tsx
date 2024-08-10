@@ -1,8 +1,7 @@
-
 'use client'
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Navbar from '../Navbar'; // Import the Navbar component
+import Navbar from '../Navbar';
 
 const Hero = () => {
   const [showPropose, setShowPropose] = useState(false);
@@ -30,18 +29,18 @@ const Hero = () => {
       tokenPicture,
     });
     closeModal(); // Close the modal after submitting
-    // navigate('/memes'); // Redirect to Memes page
+    // You can also redirect here if needed
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589] px-4 py-8">
-      {/* Navbar */}
+      
       <Navbar />
 
       {/* Old Content */}
       {showOldContent && (
         <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mt-8">
-          <h1 className="text-3xl md:text-6xl font-bold text-black" >
+          <h1 className="text-3xl md:text-6xl font-bold text-black">
             AURA 🔥 CHAIN ⛓️
           </h1>
           <p className="text-lg md:text-2xl text-center mt-2 text-black">
@@ -56,23 +55,23 @@ const Hero = () => {
       {/* New Content */}
       {showPropose && (
         <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto mt-8">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center" >
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center">
             🏹 Get Started with MemeCast 🚀
           </h2>
-          <p className="s md:text-lg text-center mb-6 text-black">
+          <p className="md:text-lg text-center mb-6 text-black">
             Create your own meme token and propose a meme to DAO 🎉
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Link href={"/memes"} className="btn btn-primary">
+            <Link href="/allmemes" className="btn btn-primary">
               View Memes
             </Link>
             <button className="btn btn-primary" onClick={openModal}>
               Propose Memes
             </button>
-            <Link href={"/memes"} className="btn btn-primary">
+            <Link href="/memes" className="btn btn-primary">
               Create Template
             </Link>
-            <Link href={"/meme-editor"} className="btn btn-primary">
+            <Link href="/meme-editor" className="btn btn-primary">
               Create Meme
             </Link>
           </div>
