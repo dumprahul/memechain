@@ -63,7 +63,7 @@ export default function Memes() {
   };
 
   const handleBackClick = () => {
-    router.push("/hero"); // Redirect to Hero.jsx
+    router.push("/"); // Redirect to Hero.jsx
   };
 
   return (
