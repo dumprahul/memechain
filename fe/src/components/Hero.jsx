@@ -28,13 +28,10 @@ const Hero = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589] px-4 py-8">
-      {/* Navbar */}
+    <div className="flex flex-col items-center h-screen bg-[#f5f589] px-4 py-8">
       <Navbar />
-
-      {/* Old Content */}
       {user == null && (
-        <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mt-8">
+        <div className="flex-1 flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mb-16">
           <h1 className="text-3xl md:text-6xl font-bold text-black">
             MEME 🔥 CAST ⛓️
           </h1>
@@ -48,7 +45,7 @@ const Hero = () => {
       )}
 
       {user != null && (
-        <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto mt-8">
+        <div className="flex-1 flex flex-col justify-center items-center max-w-screen-md mx-auto mb-16">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center">
             🏹 Get Started with MemeCast 🚀
           </h2>
@@ -72,7 +69,6 @@ const Hero = () => {
         </div>
       )}
 
-      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg">
