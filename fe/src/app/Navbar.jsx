@@ -14,12 +14,12 @@ const Navbar = () => {
   const user = useUser();
   return (
     <div className=" bg-[#f5f589] w-full z-10 py-4 flex justify-between items-center">
-      <div className="flex space-x-2 my-auto ml-6">
+      <Link href='/' className="flex space-x-2 my-auto ml-6">
         <Image src="/logo-one.png" alt="logo" width={50} height={50} />{" "}
         <p className="text-xl text-black my-auto" id="font">
           MEMECAST
         </p>
-      </div>
+      </Link>
       <div className="navbar-end pr-4 my-4">
         {user != null ? (
           <button
