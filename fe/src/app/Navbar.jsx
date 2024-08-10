@@ -9,6 +9,7 @@ import {
 
 const Navbar = () => {
   const { openAuthModal } = useAuthModal();
+  const {logOut} =useLogout();
   const user = useUser();
   return (
     <div className="navbar bg-[#f5f589] fixed top-0 left-0 w-full z-10 py-4 flex justify-between items-center">
@@ -23,7 +24,7 @@ const Navbar = () => {
         {" "}
         {/* Added padding-right to navbar-end */}
         {user != null ? (
-          <button className="btn text-black bg-white hover:bg-gray-300 cursor-default">
+          <button className="btn text-black bg-white hover:bg-gray-300 cursor-default" onClick={logOut}>
             {user.address.slice(0, 6)}...{user.address.slice(-4)}
           </button>
         ) : (
