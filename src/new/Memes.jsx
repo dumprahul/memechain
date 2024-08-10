@@ -45,40 +45,40 @@ const Memes = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#f5f589] py-10">
-      <div className="flex flex-col items-center mb-8">
-        <h1 className="text-6xl font-bold mb-4" style={{ fontFamily: 'Bread Coffee' }} id='font'>
-          MEMES AND TEMPLATES
+    <div className="flex flex-col items-center h-screen bg-[#f5f589] py-6">
+      <div className="text-center mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4" style={{ fontFamily: 'Bread Coffee' }} id='font'>
+          MEMES AND TEMPLATES 🛠️💣
         </h1>
-        <p className="text-center text-2xl max-w-2xl" style={{ fontFamily: 'Bread Coffee' }} id='font'>
+        <p className="text-lg md:text-2xl max-w-2xl mx-auto" style={{ fontFamily: 'Bread Coffee' }} id='font'>
           Edit or Create memes on your own with MemeCast!
         </p>
       </div>
 
-      <div className="flex justify-center space-x-4 mb-8 mt-10">
+      <div className="flex flex-wrap justify-center gap-4 mb-6">
         <button
-          className="btn"
+          className="btn btn-default text-white hover:bg-red-600 py-2 px-4 rounded"
           style={{ fontFamily: 'Bread Coffee' }}
           onClick={() => handleButtonClick(deadpoolCards)}
         >
           Deadpool
         </button>
         <button
-          className="btn"
+          className="btn btn-default text-white hover:bg-yellow-400 py-2 px-4 rounded"
           style={{ fontFamily: 'Bread Coffee' }}
           onClick={() => handleButtonClick(wolverineCards)}
         >
           Wolverine
         </button>
         <button
-          className="btn"
+          className="btn btn-default text-white hover:bg-slate-800 py-2 px-4 rounded"
           style={{ fontFamily: 'Bread Coffee' }}
           onClick={() => handleButtonClick(hawkTuatCards)}
         >
           Hawk-Tuat
         </button>
         <button
-          className="btn"
+          className="btn btn-default text-white hover:bg-orange-400 py-2 px-4 rounded"
           style={{ fontFamily: 'Bread Coffee' }}
           onClick={() => handleButtonClick(drakeCards)}
         >
@@ -86,22 +86,22 @@ const Memes = () => {
         </button>
       </div>
 
-      <div className="flex overflow-x-auto space-x-4 py-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 overflow-y-auto py-4 w-full max-w-screen-lg">
         {cards.map((card, index) => (
           <button 
             key={index}
-            className="card bg-base-100 image-full w-80 shadow-xl border border-black flex flex-col items-center justify-center"
+            className="card bg-base-100 image-full w-full shadow-xl border border-black flex flex-col items-center justify-center"
             onClick={() => handleCardClick(card.imageUrl)} // Update to handle click
           >
             <figure>
               <img
                 src={card.imageUrl}
                 alt={card.title}
-                className="w-full h-60 object-cover"
+                className="w-full h-40 object-cover"
               />
             </figure>
             <div className="card-body flex flex-col items-center justify-center p-4">
-              <h2 className="card-title text-center mb-4" style={{ fontFamily: 'Bread Coffee' }}>
+              <h2 className="card-title text-lg text-center mb-4" style={{ fontFamily: 'Bread Coffee' }}>
                 {card.title}
               </h2>
             </div>
