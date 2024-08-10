@@ -1,6 +1,7 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Rnd } from 'react-rnd';
+import Navbar from '../Navbar'; // Import the Navbar component
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
@@ -9,7 +10,6 @@ const MemeEditor = () => {
   const [fontSize, setFontSize] = useState('40');
   const [textColor, setTextColor] = useState('#FFFFFF');
   const [stickers, setStickers] = useState([]);
-
 
   const stickerOptions = [
     'src/assets/stickers/blunt_1_optimized.png',
@@ -99,175 +99,176 @@ const MemeEditor = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
-      {/* Buttons Container */}
-      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black"    >
-       LETSF MEME CASTTTT ⚒️🔥
-      </h1>
-      <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-        <label htmlFor="file-upload" className="btn px-4 py-2 text-sm md:text-base"    >
-          Choose File
-        </label>
-        <input
-          id="file-upload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
+    <div>
+      {/* Navbar at the top */}
+      <Navbar />
 
-        <button onClick={addTextBox} className="btn px-4 py-2 text-sm md:text-base"    >
-          Add Text
-        </button>
+      {/* Main content with padding-top to accommodate the fixed Navbar */}
+      <div className="pt-20 flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
+        <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black">
+          LETSF MEME CASTTTT ⚒️🔥
+        </h1>
+        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
+          <label htmlFor="file-upload" className="btn px-4 py-2 text-sm md:text-base">
+            Choose File
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
 
-        <select
-          value={font}
-          onChange={(e) => setFont(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
-        >
-          <option value="Arial">Arial</option>
-          <option value="Bread Coffee">Bread Coffee</option>
-          <option value="Verdana">Verdana</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Courier New">Courier New</option>
-          <option value="Georgia">Georgia</option>
-        </select>
+          <button onClick={addTextBox} className="btn px-4 py-2 text-sm md:text-base">
+            Add Text
+          </button>
 
-        <select
-          value={fontSize}
-          onChange={(e) => setFontSize(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
-        >
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-          <option value="50">50</option>
-          <option value="60">60</option>
-        </select>
-
-        <select
-          value={textColor}
-          onChange={(e) => setTextColor(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
-        >
-          <option value="#FFFFFF">White</option>
-          <option value="#000000">Black</option>
-          <option value="#FF0000">Red</option>
-          <option value="#00FF00">Green</option>
-          <option value="#0000FF">Blue</option>
-        </select>
-
-        <select
-          onChange={(e) => addSticker(e.target.value)}
-          className="btn px-4 py-2 text-sm md:text-base"
-             
-        >
-          <option value="">Select a sticker</option>
-          {stickerOptions.map((stickerPath, index) => (
-            <option key={index} value={stickerPath}>
-              Sticker {index + 1}
-            </option>
-          ))}
-        </select>
-
-        {image && (
-          <button
-            onClick={handleDownload}
+          <select
+            value={font}
+            onChange={(e) => setFont(e.target.value)}
             className="btn px-4 py-2 text-sm md:text-base"
           >
-            Download Meme
-          </button>
-        )}
-      </div>
+            <option value="Arial">Arial</option>
+            <option value="Bread Coffee">Bread Coffee</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+          </select>
 
-      {/* Meme Layout Container */}
-      <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center">
-        {image ? (
-          <div className="relative w-full h-full flex items-center justify-center">
-            <img
-              id="uploadedImage"
-              src={image}
-              alt="Meme"
-              className="max-w-full max-h-full border-4 border-gray-500 rounded-md"
-            />
-            {textBoxes.map((box, index) => (
-              <Rnd
-                key={index}
-                bounds="parent"
-                position={{ x: box.x, y: box.y }}
-                onDragStop={(e, d) =>
-                  updateTextBox(index, { ...box, x: d.x, y: d.y })
-                }
-                className="absolute"
-                style={{
-                  fontFamily: box.font,
-                  fontSize: `${box.fontSize}px`,
-                  color: box.color,
-                  border: '2px dashed rgba(255, 255, 255, 0.5)',
-                  padding: '8px',
-                }}
-              >
-                <div>
-                  <input
-                    type="text"
-                    value={box.text}
-                    onChange={(e) =>
-                      updateTextBox(index, { ...box, text: e.target.value })
-                    }
-                    style={{
-                      fontFamily: box.font,
-                      fontSize: `${box.fontSize}px`,
-                      color: box.color,
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                    }}
+          <select
+            value={fontSize}
+            onChange={(e) => setFontSize(e.target.value)}
+            className="btn px-4 py-2 text-sm md:text-base"
+          >
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+          </select>
+
+          <select
+            value={textColor}
+            onChange={(e) => setTextColor(e.target.value)}
+            className="btn px-4 py-2 text-sm md:text-base"
+          >
+            <option value="#FFFFFF">White</option>
+            <option value="#000000">Black</option>
+            <option value="#FF0000">Red</option>
+            <option value="#00FF00">Green</option>
+            <option value="#0000FF">Blue</option>
+          </select>
+
+          <select
+            onChange={(e) => addSticker(e.target.value)}
+            className="btn px-4 py-2 text-sm md:text-base"
+          >
+            <option value="">Select a sticker</option>
+            {stickerOptions.map((stickerPath, index) => (
+              <option key={index} value={stickerPath}>
+                Sticker {index + 1}
+              </option>
+            ))}
+          </select>
+
+          {image && (
+            <button
+              onClick={handleDownload}
+              className="btn px-4 py-2 text-sm md:text-base"
+            >
+              Download Meme
+            </button>
+          )}
+        </div>
+
+        {/* Meme Layout Container */}
+        <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center">
+          {image ? (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                id="uploadedImage"
+                src={image}
+                alt="Meme"
+                className="max-w-full max-h-full border-4 border-gray-500 rounded-md"
+              />
+              {textBoxes.map((box, index) => (
+                <Rnd
+                  key={index}
+                  bounds="parent"
+                  position={{ x: box.x, y: box.y }}
+                  onDragStop={(e, d) =>
+                    updateTextBox(index, { ...box, x: d.x, y: d.y })
+                  }
+                  className="absolute"
+                  style={{
+                    fontFamily: box.font,
+                    fontSize: `${box.fontSize}px`,
+                    color: box.color,
+                    border: '2px dashed rgba(255, 255, 255, 0.5)',
+                    padding: '8px',
+                  }}
+                >
+                  <div>
+                    <input
+                      type="text"
+                      value={box.text}
+                      onChange={(e) =>
+                        updateTextBox(index, { ...box, text: e.target.value })
+                      }
+                      style={{
+                        fontFamily: box.font,
+                        fontSize: `${box.fontSize}px`,
+                        color: box.color,
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                      }}
+                    />
+                    <button
+                      onClick={() => handleDeleteText(index)}
+                      className="btn btn-outline btn-secondary"
+                    >
+                      X
+                    </button>
+                  </div>
+                </Rnd>
+              ))}
+              {stickers.map((sticker, index) => (
+                <Rnd
+                  key={index}
+                  bounds="parent"
+                  position={{ x: sticker.x, y: sticker.y }}
+                  onDragStop={(e, d) =>
+                    setStickers(stickers.map((s, i) =>
+                      i === index ? { ...s, x: d.x, y: d.y } : s
+                    ))
+                  }
+                  className="absolute"
+                  style={{
+                    border: '2px dashed rgba(255, 255, 255, 0.5)',
+                    padding: '8px',
+                  }}
+                >
+                  <img
+                    src={sticker.src}
+                    alt="sticker"
+                    className="max-w-full max-h-full"
                   />
                   <button
-                    onClick={() => handleDeleteText(index)}
+                    onClick={() => handleDeleteSticker(index)}
                     className="btn btn-outline btn-secondary"
                   >
                     X
                   </button>
-                </div>
-              </Rnd>
-            ))}
-            {stickers.map((sticker, index) => (
-              <Rnd
-                key={index}
-                bounds="parent"
-                position={{ x: sticker.x, y: sticker.y }}
-                onDragStop={(e, d) =>
-                  setStickers(stickers.map((s, i) =>
-                    i === index ? { ...s, x: d.x, y: d.y } : s
-                  ))
-                }
-                className="absolute"
-                style={{
-                  border: '2px dashed rgba(255, 255, 255, 0.5)',
-                  padding: '8px',
-                }}
-              >
-                <img
-                  src={sticker.src}
-                  alt="sticker"
-                  className="max-w-full max-h-full"
-                />
-                <button
-                  onClick={() => handleDeleteSticker(index)}
-                  className="btn btn-outline btn-secondary"
-                >
-                  X
-                </button>
-              </Rnd>
-            ))}
-          </div>
-        ) : (
-          <p className="text-lg text-gray-500">No image selected</p>
-        )}
+                </Rnd>
+              ))}
+            </div>
+          ) : (
+            <p className="text-lg text-gray-500">No image selected</p>
+          )}
+        </div>
       </div>
     </div>
   );

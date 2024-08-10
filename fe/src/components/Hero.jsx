@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Navbar from '../app/Navbar'; // Import the Navbar component
 
 const Hero = () => {
   const [showPropose, setShowPropose] = useState(false);
@@ -27,9 +28,12 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-[#f5f589] px-4 py-8">
+      {/* Navbar */}
+      <Navbar />
+
       {/* Old Content */}
       {showOldContent && (
-        <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto">
+        <div className="flex flex-col justify-center items-center transition-opacity duration-700 ease-out transform scale-100 opacity-100 max-w-screen-md mx-auto mt-8">
           <h1 className="text-3xl md:text-6xl font-bold text-black" >
             AURA 🔥 CHAIN ⛓️
           </h1>
@@ -47,9 +51,9 @@ const Hero = () => {
 
       {/* New Content */}
       {showPropose && (
-        <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto">
+        <div className="flex flex-col justify-center items-center max-w-screen-md mx-auto mt-8">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-black text-center" >
-            🏹 Get's Started with MemeCast 🚀
+            🏹 Get Started with MemeCast 🚀
           </h2>
           <p className="s md:text-lg text-center mb-6 text-black" >
             Create your own meme token and propose a meme to DAO 🎉
@@ -61,10 +65,10 @@ const Hero = () => {
             <button className="btn btn-default" onClick={openModal}>
               Propose Memes
             </button>
-            <Link  href={'/memes'}  className="btn btn-default">
+            <Link href={'/memes'} className="btn btn-default">
               Create Template
             </Link>
-            <Link  href={'/meme-editor'}  className="btn btn-default" >
+            <Link href={'/meme-editor'} className="btn btn-default">
               Create Meme
             </Link>
           </div>

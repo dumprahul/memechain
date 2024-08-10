@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../app/Navbar'; // Import the Navbar component
 
 // Import local images
 import d1 from '../assets/memes/d1.jpg';
@@ -45,68 +46,57 @@ const Memes = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#f5f589] py-10">
-      <div className="flex flex-col items-center mb-8">
-        <h1 className="text-6xl font-bold mb-4"   id='font'>
-          MEMES AND TEMPLATES
-        </h1>
-        <p className="text-center text-2xl max-w-2xl"   id='font'>
-          Edit or Create memes on your own with MemeCast!
-        </p>
-      </div>
+    <div>
+      {/* Navbar at the top */}
+      <Navbar />
 
-      <div className="flex justify-center space-x-4 mb-8 mt-10">
-        <button
-          className="btn"
-           
-          onClick={() => handleButtonClick(deadpoolCards)}
-        >
-          Deadpool
-        </button>
-        <button
-          className="btn"
-           
-          onClick={() => handleButtonClick(wolverineCards)}
-        >
-          Wolverine
-        </button>
-        <button
-          className="btn"
-           
-          onClick={() => handleButtonClick(hawkTuatCards)}
-        >
-          Hawk-Tuat
-        </button>
-        <button
-          className="btn"
-           
-          onClick={() => handleButtonClick(drakeCards)}
-        >
-          Drake
-        </button>
-      </div>
+      <div className="pt-16 flex flex-col items-center h-screen bg-[#f5f589] py-10">
+        <div className="flex flex-col items-center mb-8">
+          <h1 className="text-6xl font-bold mb-4" id='font'>
+            MEMES AND TEMPLATES
+          </h1>
+          <p className="text-center text-2xl max-w-2xl" id='font'>
+            Edit or Create memes on your own with MemeCast!
+          </p>
+        </div>
 
-      <div className="flex overflow-x-auto space-x-4 py-4">
-        {cards.map((card, index) => (
-          <button 
-            key={index}
-            className="card bg-base-100 image-full w-80 shadow-xl border border-black flex flex-col items-center justify-center"
-            onClick={() => handleCardClick(card.imageUrl)} // Update to handle click
-          >
-            <figure>
-              <img
-                src={card.imageUrl}
-                alt={card.title}
-                className="w-full h-60 object-cover"
-              />
-            </figure>
-            <div className="card-body flex flex-col items-center justify-center p-4">
-              <h2 className="card-title text-center mb-4"  >
-                {card.title}
-              </h2>
-            </div>
+        <div className="flex justify-center space-x-4 mb-8 mt-10">
+          <button className="btn" onClick={() => handleButtonClick(deadpoolCards)}>
+            Deadpool
           </button>
-        ))}
+          <button className="btn" onClick={() => handleButtonClick(wolverineCards)}>
+            Wolverine
+          </button>
+          <button className="btn" onClick={() => handleButtonClick(hawkTuatCards)}>
+            Hawk-Tuat
+          </button>
+          <button className="btn" onClick={() => handleButtonClick(drakeCards)}>
+            Drake
+          </button>
+        </div>
+
+        <div className="flex overflow-x-auto space-x-4 py-4">
+          {cards.map((card, index) => (
+            <button 
+              key={index}
+              className="card bg-base-100 image-full w-80 shadow-xl border border-black flex flex-col items-center justify-center"
+              onClick={() => handleCardClick(card.imageUrl)} // Update to handle click
+            >
+              <figure>
+                <img
+                  src={card.imageUrl}
+                  alt={card.title}
+                  className="w-full h-60 object-cover"
+                />
+              </figure>
+              <div className="card-body flex flex-col items-center justify-center p-4">
+                <h2 className="card-title text-center mb-4">
+                  {card.title}
+                </h2>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
