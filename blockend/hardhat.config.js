@@ -45,6 +45,7 @@ module.exports = {
   etherscan: {
     apiKey: {
       baseSepolia: networks.baseSepolia.verifyApiKey,
+      auraChain: "abc"
     },
     customChains: [
       {
@@ -59,8 +60,8 @@ module.exports = {
         network: "auraChain",
         chainId: networks.auraChain.chainId,
         urls: {
-          apiURL: "https://api-sepolia.arbiscan.io/api/",
-          browserURL: "https://sepolia.arbiscan.io/",
+          apiURL: "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/api/",
+          browserURL: "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/",
         },
       },
     ],

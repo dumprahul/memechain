@@ -30,7 +30,7 @@ const networks = {
   gasPrice: undefined,
   nonce: undefined,
   accounts,
-  verifyApiKey: process.env.BASESCAN_API_KEY || "UNSET",
+  verifyApiKey: "UNSET",
   chainId: 88759,
   confirmations: DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
   nativeCurrencySymbol: "ETH",
