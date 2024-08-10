@@ -108,11 +108,13 @@ const MemeEditor = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8" style={{ backgroundColor: '#f5f589' }}>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
       {/* Buttons Container */}
-      <h1 className="text-5xl font-bold mb-6" style={{ fontFamily: 'Bread Coffee' }} id="font">Meme Editor ⚒️🔥</h1>
-      <div className="flex justify-center items-center space-x-4 mb-4">
-        <label htmlFor="file-upload" className="btn btn-neutral btn-secondary" style={{ fontFamily: 'Bread Coffee' }}>
+      <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center" style={{ fontFamily: 'Bread Coffee' }} id="font">
+       LETSF MEME CASTTTT ⚒️🔥
+      </h1>
+      <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
+        <label htmlFor="file-upload" className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base" style={{ fontFamily: 'Bread Coffee' }}>
           Choose File
         </label>
         <input
@@ -123,14 +125,14 @@ const MemeEditor = () => {
           className="hidden"
         />
 
-        <button onClick={addTextBox} className="btn btn-neutral btn-secondary" style={{ fontFamily: 'Bread Coffee' }}>
+        <button onClick={addTextBox} className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base" style={{ fontFamily: 'Bread Coffee' }}>
           Add Text
         </button>
 
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
-          className="btn btn-neutral btn-secondary"
+          className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base"
           style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="Arial">Arial</option>
@@ -144,7 +146,7 @@ const MemeEditor = () => {
         <select
           value={fontSize}
           onChange={(e) => setFontSize(e.target.value)}
-          className="btn btn-neutral btn-secondary"
+          className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base"
           style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="20">20</option>
@@ -157,7 +159,7 @@ const MemeEditor = () => {
         <select
           value={textColor}
           onChange={(e) => setTextColor(e.target.value)}
-          className="btn btn-neutral btn-secondary"
+          className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base"
           style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="#FFFFFF">White</option>
@@ -169,7 +171,7 @@ const MemeEditor = () => {
 
         <select
           onChange={(e) => addSticker(e.target.value)}
-          className="btn btn-neutral btn-secondary"
+          className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base"
           style={{ fontFamily: 'Bread Coffee' }}
         >
           <option value="">Select a sticker</option>
@@ -183,7 +185,7 @@ const MemeEditor = () => {
         {image && (
           <button
             onClick={handleDownload}
-            className="btn btn-neutral btn-secondary"
+            className="btn btn-neutral btn-secondary px-4 py-2 text-sm md:text-base"
           >
             Download Meme
           </button>
@@ -191,9 +193,9 @@ const MemeEditor = () => {
       </div>
 
       {/* Meme Layout Container */}
-      <div className="flex border-2 border-gray-300 p-8 rounded-lg w-[900px] h-[600px] items-center justify-center" style={{ backgroundColor: '#ffffff' }}>
+      <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center">
         {image ? (
-          <div className="relative">
+          <div className="relative w-full h-full flex items-center justify-center">
             <img
               id="uploadedImage"
               src={image}
