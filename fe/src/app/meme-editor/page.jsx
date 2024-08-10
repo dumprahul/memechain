@@ -131,7 +131,7 @@ const MemeEditor = () => {
           LETSF MEME CASTTTT ⚒️🔥
         </h1>
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-          <label htmlFor="file-upload" className="btn px-4 py-2 text-sm md:text-base">
+          <label htmlFor="file-upload" className="btn btn-secondary px-4 py-2 text-sm md:text-base">
             Choose File
           </label>
           <input
