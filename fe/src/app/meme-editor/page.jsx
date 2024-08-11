@@ -1,8 +1,8 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { Rnd } from 'react-rnd';
-import Navbar from '../../components/Navbar';
-import { useSearchParams } from 'next/navigation';
+"use client";
+import React, { useState, useEffect } from "react";
+import { Rnd } from "react-rnd";
+import Navbar from "../../components/Navbar";
+import { useSearchParams } from "next/navigation";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
@@ -100,7 +100,6 @@ const MemeEditor = () => {
   const handleSubmit = () => {
     setShowModal(true); // Show the modal when submit is clicked
   };
-  
 
   const handleModalSubmit = () => {
     console.log("Meme submitted!");
@@ -110,9 +109,6 @@ const MemeEditor = () => {
   const handleModalCancel = () => {
     setShowModal(false); // Close the modal without submission
   };
-
-
-  
 
   const addSticker = (stickerSrc) => {
     setStickers([...stickers, { src: stickerSrc, x: 0, y: 0 }]);
@@ -139,15 +135,53 @@ const MemeEditor = () => {
     setTextBoxes(updatedTextBoxes);
   };
 
+  const handleBackClick = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div>
       <Navbar />
-      <div className="pt-8 flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black">
-          MEME BUILDER ⚒️🔥
-        </h1>
+      <div
+        className="pt-16 flex flex-col items-center  min-h-screen p-4 bg-gray-100"
+        style={{ backgroundColor: "#f5f589" }}
+      >
+        <div className="flex justify-between lg:space-x-24 md:space-x-12 sapce-x-6 items-center mb-6">
+          <button
+            onClick={handleBackClick}
+            className="md:ml-8 ml-4 my-2  rounded-full"
+          >
+            <svg
+              fill="#000000"
+              height="70"
+              width="70"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 219.151 219.151"
+              className="lg:w-[100%] md:w-[80%] w-[60%]"
+            >
+              <g>
+                <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z" />
+                <path d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z" />
+              </g>
+            </svg>
+          </button>
+          <div className="text-center mr-8">
+            <h1 className=" text-4xl md:text-6xl text-center font-bold mb-4 text-black ">
+              MEME BUILDER 🛠️
+            </h1>
+            <p className="text-lg md:text-2xl max-w-2xl mx-auto text-black">
+              Create your own meme and share it to the world! 🌍
+            </p>
+          </div>
+          <div className="ml-8 w-[70px] h-[70px]"></div>
+        </div>
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-          <label htmlFor="file-upload" className="btn btn-secondary px-4 py-2 text-sm md:text-base">
+          <label
+            htmlFor="file-upload"
+            className="btn btn-secondary px-4 py-2 text-sm md:text-base"
+          >
             Choose File
           </label>
           <input
@@ -225,11 +259,7 @@ const MemeEditor = () => {
         </div>
 
         {/* Meme Layout Containerrr */}
-        <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center"
-        style={{
-          width: '1000px',
-          height: '400px'
-        }}>
+        <div className="relative w-full lg:w-[70%] h-[400px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center">
           {image ? (
             <div className="relative w-full h-full flex items-center justify-center">
               <img
@@ -251,8 +281,8 @@ const MemeEditor = () => {
                     fontFamily: box.font,
                     fontSize: `${box.fontSize}px`,
                     color: box.color,
-                    border: '2px dashed rgba(255, 255, 255, 0.5)',
-                    padding: '8px',
+                    border: "2px dashed rgba(255, 255, 255, 0.5)",
+                    padding: "8px",
                   }}
                 >
                   <div>
@@ -266,9 +296,9 @@ const MemeEditor = () => {
                         fontFamily: box.font,
                         fontSize: `${box.fontSize}px`,
                         color: box.color,
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        outline: 'none',
+                        backgroundColor: "transparent",
+                        border: "none",
+                        outline: "none",
                       }}
                     />
                     <button
@@ -318,60 +348,61 @@ const MemeEditor = () => {
         </div>
         {/* Modal for form submission */}
         {showModal && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <div className="relative bg-white p-32 rounded-lg shadow-lg w-max">
-                  <button
-                    onClick={handleModalCancel}
-                    className="absolute top-4 right-4 text-black text-3xl font-bold"
-                    style={{ width: '40px', height: '40px' }}
-                  >
-                    &times;
-                  </button>
-                  <div className="flex flex-col items-center gap-6">
-                    <h2 className="text-2xl font-bold mb-6 text-black">
-                      Your Template has been created on-chain!
-                    </h2>
-                    <button
-                              type="button"
-                              className="btn btn-primary mt-4 w-full"
-                              style={{ backgroundColor: "#000", color: "#fff" }}
-                              onClick={() => {
-                                if (proposalMetadata.tokenImageUrl) {
-                                  window.open(proposalMetadata.tokenImageUrl, "_blank");
-                                }
-                              }}
-                            >
-                              {proposalMetadata.tokenImageUrl ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : "Minting your Token on IPFS....."}
-                    </button>
-                    <button
-                              type="button"
-                              className="btn btn-primary mt-4 w-full"
-                              style={{ backgroundColor: "#000", color: "#fff" }}
-                              onClick={() => {
-                                if (txHash) {
-                                  const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
-                                  window.open(explorerUrl, "_blank");
-                                }
-                              }}
-                            >
-                              {txHash 
-                                ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                                : "Your Transaction is getting placed....."}
-                    </button>
-                    <button
-                              type="button"
-                              className="btn btn-primary mt-4 w-full bg-black text-black"
-                              style={{ backgroundColor: "#000", color: "#fff" }}
-                              onClick={() => {
-                  
-                              }}
-                            > Share On WarpCast!       
-                    </button>
-                  </div>
-                </div>
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="relative bg-white p-32 rounded-lg shadow-lg w-max">
+              <button
+                onClick={handleModalCancel}
+                className="absolute top-4 right-4 text-black text-3xl font-bold"
+                style={{ width: "40px", height: "40px" }}
+              >
+                &times;
+              </button>
+              <div className="flex flex-col items-center gap-6">
+                <h2 className="text-2xl font-bold mb-6 text-black">
+                  Your Template has been created on-chain!
+                </h2>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full"
+                  style={{ backgroundColor: "#000", color: "#fff" }}
+                  onClick={() => {
+                    if (proposalMetadata.tokenImageUrl) {
+                      window.open(proposalMetadata.tokenImageUrl, "_blank");
+                    }
+                  }}
+                >
+                  {proposalMetadata.tokenImageUrl
+                    ? "Metadata Pinned in IPFS ✅ Click here to view 🎉"
+                    : "Minting your Token on IPFS....."}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full"
+                  style={{ backgroundColor: "#000", color: "#fff" }}
+                  onClick={() => {
+                    if (txHash) {
+                      const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
+                      window.open(explorerUrl, "_blank");
+                    }
+                  }}
+                >
+                  {txHash
+                    ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
+                    : "Your Transaction is getting placed....."}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full bg-black text-black"
+                  style={{ backgroundColor: "#000", color: "#fff" }}
+                  onClick={() => {}}
+                >
+                  {" "}
+                  Share On WarpCast!
+                </button>
               </div>
-            )}
-
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
