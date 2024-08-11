@@ -12,6 +12,8 @@ const MemeEditor = () => {
   const [textColor, setTextColor] = useState("#FFFFFF");
   const [stickers, setStickers] = useState([]);
 
+  const [showModal, setShowModal] = useState(false); // State for controlling the modal
+
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
 
@@ -96,10 +98,20 @@ const MemeEditor = () => {
   };
 
   const handleSubmit = () => {
-    // Add your submission logic here
-    console.log("Meme submitted!");
-    // You can use fetch or axios to send the meme data to your backend
+    setShowModal(true); // Show the modal when submit is clicked
   };
+  
+
+  const handleModalSubmit = () => {
+    console.log("Meme submitted!");
+    setShowModal(false); // Close the modal after submission
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false); // Close the modal without submission
+  };
+
+
   
 
   const addSticker = (stickerSrc) => {
@@ -204,7 +216,7 @@ const MemeEditor = () => {
 
           {image && (
             <button
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
             >
               Submit Meme
@@ -304,6 +316,53 @@ const MemeEditor = () => {
             </p>
           )}
         </div>
+        {/* Modal for form submission */}
+        {showModal && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="relative bg-white p-32 rounded-lg shadow-lg w-max">
+                  <button
+                    onClick={handleModalCancel}
+                    className="absolute top-4 right-4 text-black text-3xl font-bold"
+                    style={{ width: '40px', height: '40px' }}
+                  >
+                    &times;
+                  </button>
+                  <div className="flex flex-col items-center gap-6">
+                    <h2 className="text-2xl font-bold mb-6 text-black">
+                      Your Template has been created on-chain!
+                    </h2>
+                    <button
+                              type="button"
+                              className="btn btn-primary mt-4 w-full"
+                              style={{ backgroundColor: "#000", color: "#fff" }}
+                              onClick={() => {
+                                if (proposalMetadata.tokenImageUrl) {
+                                  window.open(proposalMetadata.tokenImageUrl, "_blank");
+                                }
+                              }}
+                            >
+                              {proposalMetadata.tokenImageUrl ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : "Minting your Token on IPFS....."}
+                    </button>
+                    <button
+                              type="button"
+                              className="btn btn-primary mt-4 w-full"
+                              style={{ backgroundColor: "#000", color: "#fff" }}
+                              onClick={() => {
+                                if (txHash) {
+                                  const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
+                                  window.open(explorerUrl, "_blank");
+                                }
+                              }}
+                            >
+                              {txHash 
+                                ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
+                                : "Your Transaction is getting placed....."}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
       </div>
     </div>
   );
