@@ -122,13 +122,10 @@ const MemeEditor = () => {
 
   return (
     <div>
-      {/* Navbar at the top */}
       <Navbar />
-
-      {/* Main content with padding-top to accommodate the fixed Navbar */}
-      <div className="pt-20 flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
+      <div className="pt-8 flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100" style={{ backgroundColor: '#f5f589' }}>
         <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-center text-black">
-          LETSF MEME CASTTTT ⚒️🔥
+          MEME BUILDER ⚒️🔥
         </h1>
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
           <label htmlFor="file-upload" className="btn btn-secondary px-4 py-2 text-sm md:text-base">
