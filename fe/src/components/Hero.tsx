@@ -33,7 +33,9 @@ const Hero = () => {
   const [proposalMetadataUrl, setProposalMetadataUrl] = useState<string>("");
   const [modalOpen, setModalOpen] = useState(false);
   const { openAuthModal } = useAuthModal();
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [ipfsUrl, setIpfsUrl] = useState<string | null>(null); // New state for storing IPFS URL
   const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
     client,
     waitForTxn: true,
@@ -53,6 +55,7 @@ const Hero = () => {
     pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT!,
     pinataGateway: "amethyst-impossible-ptarmigan-368.mypinata.cloud",
   });
+
   return (
     <div className="flex flex-col items-center h-screen bg-[#f5f589] px-4 py-8">
       <Navbar />
@@ -119,6 +122,7 @@ const Hero = () => {
                   process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
 
                 setProposalMetadataUrl(metadataUrl);
+                setIpfsUrl(metadataUrl); // Store the IPFS URL
                 const data = getCreateMemeProposalData(
                   proposalMetadata.name,
                   proposalMetadata.symbol,
@@ -134,7 +138,6 @@ const Hero = () => {
               }}
             >
               <div className="flex space-x-3">
-                {" "}
                 <label className="block text-black">
                   Enter Meme Name:
                   <input
@@ -148,7 +151,7 @@ const Hero = () => {
                       });
                     }}
                   />
-                </label>{" "}
+                </label>
                 <label className="block text-black">
                   Enter Meme Symbol:
                   <input
@@ -203,19 +206,15 @@ const Hero = () => {
 
                     if (file != null) {
                       const upload = await pinata.upload.file(file);
-                      console.log(
+                      const fileUrl =
                         "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
-                          upload.IpfsHash +
-                          "?pinataGatewayToken=" +
-                          process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY
-                      );
+                        upload.IpfsHash +
+                        "?pinataGatewayToken=" +
+                        process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+                      console.log(fileUrl);
                       setProposalMetadata({
                         ...proposalMetadata,
-                        tokenImageUrl:
-                          "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
-                          upload.IpfsHash +
-                          "?pinataGatewayToken=" +
-                          process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY,
+                        tokenImageUrl: fileUrl,
                       });
                     }
                   }}
@@ -226,8 +225,36 @@ const Hero = () => {
                 className="btn btn-primary mt-4 w-full"
                 style={{ backgroundColor: "#f5f589", color: "#000" }}
               >
-                Submit
+                Submit ✅
               </button>
+              <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full"
+                  style={{ backgroundColor: "#f5f589", color: "#000" }}
+                  onClick={() => {
+                    if (proposalMetadata.tokenImageUrl) {
+                      window.open(proposalMetadata.tokenImageUrl, "_blank");
+                    }
+                  }}
+                >
+                  {proposalMetadata.tokenImageUrl ? "Click here to View the Minted Image Token on IPFS 🎉" : "Minting your Token on IPFS....."}
+              </button>
+              <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full"
+                  style={{ backgroundColor: "#f5f589", color: "#000" }}
+                  onClick={() => {
+                    if (txHash) {
+                      const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
+                      window.open(explorerUrl, "_blank");
+                    }
+                  }}
+                >
+                  {txHash 
+                    ? `Click here to View the Transaction on Explorer 🎉`
+                    : "Your Transaction is getting place....."}
+              </button>
+
             </form>
           </div>
         </div>
