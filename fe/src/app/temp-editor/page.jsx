@@ -4,19 +4,32 @@ import { Rnd } from "react-rnd";
 import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { PinataSDK } from "pinata";
+import getCreateTemplateData from "@/utils/getCreateTemplateData";
+import {
+  useChain,
+  useSendUserOperation,
+  useSmartAccountClient,
+  useUser,
+} from "@account-kit/react";
+import createTemplate from "@/utils/supabase/write/createTemplate";
+import { alchemyAuraChain, MEMECAST_ADDRESS } from "@/utils/constants";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
+  const { chain, setChain } = useChain();
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [textBoxes, setTextBoxes] = useState([]);
   const [font, setFont] = useState("Bread Coffee");
   const [fontSize, setFontSize] = useState("40");
   const [textColor, setTextColor] = useState("#FFFFFF");
   const [stickers, setStickers] = useState([]);
   const [showModal, setShowModal] = useState(false); // State for controlling the modal
-
+  const [memeCategory, setMemeCatgeory] = useState("");
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
-
+  const [templateUrl, setTemplateUrl] = useState("");
+  const [txhash, setTxHash] = useState("");
   const stickerOptions = [
     "/stickers/blunt.png",
     "/stickers/doge.png",
@@ -24,7 +37,28 @@ const MemeEditor = () => {
     "/stickers/sunglass.png",
     "/stickers/vibecat.png",
   ];
+  const user = useUser();
+  const { client } = useSmartAccountClient({ type: "LightAccount" });
+  const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
+    client,
+    waitForTxn: true,
+    onSuccess: async ({ hash, request }) => {
+      console.log("Transaction sent: ", hash);
+      setTxHash(hash);
 
+      const { data } = await createTemplate("1", templateUrl, "249577");
+      console.log("Create Category data");
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log("ERROR");
+      console.log(error);
+    },
+  });
+  const pinata = new PinataSDK({
+    pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT,
+    pinataGateway: "amethyst-impossible-ptarmigan-368.mypinata.cloud",
+  });
   useEffect(() => {
     if (imageUrl) {
       setImage(imageUrl);
@@ -33,6 +67,7 @@ const MemeEditor = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    setUploadedImage(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result);
@@ -199,15 +234,6 @@ const MemeEditor = () => {
               </option>
             ))}
           </select>
-
-          {image && (
-            <button
-              onClick={handleSubmit}
-              className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
-            >
-              Submit Meme
-            </button>
-          )}
         </div>
 
         {/* Meme Layout Container */}
@@ -299,6 +325,14 @@ const MemeEditor = () => {
           )}
         </div>
 
+        {image && (
+          <button
+            onClick={handleSubmit}
+            className="btn  btn-secondary mt-8 px-4 py-2 text-sm md:text-base"
+          >
+            Submit Template
+          </button>
+        )}
         {/* Modal for form submission */}
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -312,45 +346,78 @@ const MemeEditor = () => {
               </button>
               <div className="flex flex-col items-center gap-6">
                 <h2 className="text-2xl font-bold mb-6 text-black">
-                  Your Template has been created on-chain!
+                  Creating Template ⌛
                 </h2>
+                <label className="block text-black w-full">
+                  Enter Meme Category:
+                  <input
+                    type="text"
+                    className="modal-input mt-1 block w-full"
+                    value={memeCategory}
+                    onChange={(e) => {
+                      setMemeCatgeory(e.target.value);
+                    }}
+                  />
+                </label>
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
                   style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {
-                    if (proposalMetadata.tokenImageUrl) {
-                      window.open(proposalMetadata.tokenImageUrl, "_blank");
+                  onClick={async () => {
+                    const upload = await pinata.upload.file(uploadedImage);
+                    const fileUrl =
+                      "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+                      upload.IpfsHash +
+                      "?pinataGatewayToken=" +
+                      process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+                    console.log(fileUrl);
+                    setTemplateUrl(fileUrl);
+                    // Trigger set template
+                    const data = getCreateTemplateData("1", fileUrl);
+                    if (chain.id != alchemyAuraChain.id) {
+                      setChain({
+                        chain: alchemyAuraChain,
+                      });
                     }
+                    sendUserOperation({
+                      uo: {
+                        target: MEMECAST_ADDRESS,
+                        data: data,
+                        value: BigInt("0"),
+                      },
+                    });
                   }}
+                  disabled={memeCategory == ""}
                 >
-                  {proposalMetadata.tokenImageUrl
-                    ? "Metadata Pinned in IPFS ✅ Click here to view 🎉"
-                    : "Minting your Token on IPFS....."}
+                  Submit ✅
                 </button>
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
                   style={{ backgroundColor: "#000", color: "#fff" }}
+                  disabled={templateUrl == ""}
                   onClick={() => {
-                    if (txHash) {
-                      const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
-                      window.open(explorerUrl, "_blank");
-                    }
+                    window.location.href = templateUrl;
                   }}
                 >
-                  {txHash
-                    ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                    : "Your Transaction is getting placed....."}
+                  {templateUrl != ""
+                    ? `Pinned on IPFS✅ Click here to view template 📍`
+                    : ""}
                 </button>
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
                   style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {}}
+                  disabled={txhash == ""}
+                  onClick={() => {
+                    window.location.href =
+                      "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/" +
+                      txhash;
+                  }}
                 >
-                  {" "}
-                  Share On WarpCast!
+                  {txhash != ""
+                    ? `Transaction Success ✅ Click here to view 🔍`
+                    : ""}
                 </button>
               </div>
             </div>

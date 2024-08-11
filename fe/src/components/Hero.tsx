@@ -6,6 +6,7 @@ import {
   useAuthModal,
   useSmartAccountClient,
   useSendUserOperation,
+  useChain,
 } from "@account-kit/react";
 import { PinataSDK } from "pinata";
 import { alchemyAuraChain, MEMECAST_ADDRESS } from "@/utils/constants";
@@ -23,6 +24,7 @@ type ProposalMetadata = {
 
 const Hero = () => {
   const user = useUser();
+  const { chain, setChain } = useChain();
   const { client } = useSmartAccountClient({ type: "LightAccount" });
 
   const [proposalMetadata, setProposalMetadata] = useState<ProposalMetadata>({
@@ -45,10 +47,14 @@ const Hero = () => {
     onSuccess: async ({ hash, request }) => {
       console.log("Transaction sent: ", hash);
       setTxHash(hash);
-      
-      const {data}=await createCategory(proposalMetadata.name, user?.address as string, proposalMetadataUrl)
-      console.log("Create Category data")
-      console.log(data)
+
+      const { data } = await createCategory(
+        proposalMetadata.name,
+        user?.address as string,
+        proposalMetadataUrl
+      );
+      console.log("Create Category data");
+      console.log(data);
     },
     onError: (error) => {
       console.log("ERROR");
@@ -135,6 +141,11 @@ const Hero = () => {
                   proposalMetadata.symbol,
                   metadataUrl
                 );
+                if (chain.id != alchemyAuraChain.id) {
+                  setChain({
+                    chain: alchemyAuraChain,
+                  });
+                }
                 sendUserOperation({
                   uo: {
                     target: MEMECAST_ADDRESS as `0x${string}`,
@@ -237,35 +248,36 @@ const Hero = () => {
                 Submit ✅
               </button>
               <button
-                  type="button"
-                  className="btn btn-primary mt-4 w-full"
-                  style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {
-                    if (proposalMetadata.tokenImageUrl) {
-                      window.open(proposalMetadata.tokenImageUrl, "_blank");
-                    }
-                  }}
-                  disabled={proposalMetadata.tokenImageUrl==""}
-                >
-                  {proposalMetadata.tokenImageUrl !="" ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : ""}
+                type="button"
+                className="btn btn-primary mt-4 w-full"
+                style={{ backgroundColor: "#000", color: "#fff" }}
+                onClick={() => {
+                  if (proposalMetadata.tokenImageUrl) {
+                    window.open(proposalMetadata.tokenImageUrl, "_blank");
+                  }
+                }}
+                disabled={proposalMetadata.tokenImageUrl == ""}
+              >
+                {proposalMetadata.tokenImageUrl != ""
+                  ? "Metadata Pinned in IPFS ✅ Click here to view 🎉"
+                  : ""}
               </button>
               <button
-                  type="button"
-                  className="btn btn-primary mt-4 w-full"
-                  style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {
-                    if (txHash) {
-                      const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
-                      window.open(explorerUrl, "_blank");
-                    }
-                  }}
-                  disabled={txHash=="" || txHash==null}
-                >
-                  {txHash !="" && txHash !=null
-                    ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                    : ""}
+                type="button"
+                className="btn btn-primary mt-4 w-full"
+                style={{ backgroundColor: "#000", color: "#fff" }}
+                onClick={() => {
+                  if (txHash) {
+                    const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
+                    window.open(explorerUrl, "_blank");
+                  }
+                }}
+                disabled={txHash == "" || txHash == null}
+              >
+                {txHash != "" && txHash != null
+                  ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
+                  : ""}
               </button>
-
             </form>
           </div>
         </div>
