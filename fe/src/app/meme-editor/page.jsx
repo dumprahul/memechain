@@ -5,6 +5,9 @@ import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import getCreateMemeData from "@/utils/getCreateMemeData";
+import { useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
+import createMeme from "@/utils/supabase/write/createMeme";
+import { PinataSDK } from "pinata";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
@@ -19,7 +22,28 @@ const MemeEditor = () => {
 
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
+  const user = useUser();
+  const { client } = useSmartAccountClient({ type: "LightAccount" });
+  const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
+    client,
+    waitForTxn: true,
+    onSuccess: async ({ hash, request }) => {
+      console.log("Transaction sent: ", hash);
+      setTxHash(hash);
 
+      const { data } = await createMeme("1","1", memeUrl, "249577");
+      console.log("Create Meme data");
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log("ERROR");
+      console.log(error);
+    },
+  });
+  const pinata = new PinataSDK({
+    pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT,
+    pinataGateway: "amethyst-impossible-ptarmigan-368.mypinata.cloud",
+  });
   const stickerOptions = [
     "/stickers/blunt.png",
     "/stickers/doge.png",
