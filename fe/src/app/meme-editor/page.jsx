@@ -11,6 +11,7 @@ import { PinataSDK } from "pinata";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
+  const [uploadImage, setUploadImage]=useState(null)
   const [textBoxes, setTextBoxes] = useState([]);
   const [font, setFont] = useState("Bread Coffee");
   const [fontSize, setFontSize] = useState("40");
@@ -61,6 +62,7 @@ const MemeEditor = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    setUploadImage(file)
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result);
@@ -127,7 +129,7 @@ const MemeEditor = () => {
 
   const handleSubmit = async() => {
     setShowModal(true); // Show the modal when submit is clicked
-    const upload = await pinata.upload.file(uploadedImage);
+    const upload = await pinata.upload.file(uploadImage);
     const fileUrl =
       "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
       upload.IpfsHash +
@@ -223,19 +225,7 @@ const MemeEditor = () => {
           <div className="ml-8 w-[70px] h-[70px]"></div>
         </div>
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-          <label
-            htmlFor="file-upload"
-            className="btn btn-secondary px-4 py-2 text-sm md:text-base"
-          >
-            Choose File
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
+         
 
           <button
             onClick={addTextBox}
