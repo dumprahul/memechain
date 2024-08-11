@@ -255,7 +255,7 @@ const Hero = () => {
                 >
                   {txHash 
                     ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                    : "Your Transaction is getting place....."}
+                    : "Your Transaction is getting placed....."}
               </button>
 
             </form>
