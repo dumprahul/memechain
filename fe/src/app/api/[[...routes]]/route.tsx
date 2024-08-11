@@ -35,6 +35,25 @@ app.frame("/meme/:id", async (c) => {
   const params = c.req.param();
   const memeId = params["id"];
   const meme = await getFrameData(memeId);
+  if(meme.success==false)
+    return c.res({ image: (
+      <div
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: '#000',
+        }}
+      >
+     <p style={{
+      color: "#fff"
+     }}>Meme not Found</p>
+      </div>
+    ),})
+    else
   return c.res({
     image: (
       <div
@@ -47,7 +66,7 @@ app.frame("/meme/:id", async (c) => {
         }}
       >
         <img
-          src="https://picsum.photos/400/200"
+          src={meme.data.image}
           style={{
             height: "100%",
             width: "100%",
@@ -72,16 +91,16 @@ app.frame("/meme/:id", async (c) => {
         >
           Created by
           <img
-            src="https://picsum.photos/200/200"
+            src={meme.data.created_by.image}
             style={{
-              marginLeft: "5px",
+              marginLeft: "8px",
               borderRadius: "50%",
             }}
             alt="Profile Icon"
             width={30}
             height={30}
           />
-          <span style={{ marginLeft: "5px" }}>Profile Name</span>
+          <span style={{ marginLeft: "8px" }}>{meme.data.created_by.name}</span>
         </div>
         <div
           style={{
