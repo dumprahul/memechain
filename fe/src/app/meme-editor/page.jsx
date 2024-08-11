@@ -55,6 +55,7 @@ const MemeEditor = () => {
   ];
 
   useEffect(() => {
+    setImage(imageUrl)
     (async function (){
       const response = await fetch(imageUrl);
       const blob = await response.blob();
