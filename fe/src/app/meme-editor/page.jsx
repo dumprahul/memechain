@@ -5,26 +5,31 @@ import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import getCreateMemeData from "@/utils/getCreateMemeData";
-import { useChain, useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
+import {
+  useChain,
+  useSendUserOperation,
+  useSmartAccountClient,
+  useUser,
+} from "@account-kit/react";
 import createMeme from "@/utils/supabase/write/createMeme";
 import { PinataSDK } from "pinata";
 import { alchemyAuraChain, MEMECAST_ADDRESS } from "@/utils/constants";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
-  const [uploadImage, setUploadImage]=useState(null)
+  const [uploadImage, setUploadImage] = useState(null);
   const [textBoxes, setTextBoxes] = useState([]);
   const [font, setFont] = useState("Bread Coffee");
   const [fontSize, setFontSize] = useState("40");
   const [textColor, setTextColor] = useState("#FFFFFF");
   const [stickers, setStickers] = useState([]);
-  const [memeId, setMemeId]=useState('')
-  const [memeUrl, setMemeUrl]=useState('')
+  const [memeId, setMemeId] = useState("");
+  const [memeUrl, setMemeUrl] = useState("");
   const [showModal, setShowModal] = useState(false); // State for controlling the modal
-  const {chain, setChain}=useChain()
+  const { chain, setChain } = useChain();
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
-  const [txhash, setTxHash]=useState('')
+  const [txhash, setTxHash] = useState("");
   const user = useUser();
   const { client } = useSmartAccountClient({ type: "LightAccount" });
   const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
@@ -34,10 +39,13 @@ const MemeEditor = () => {
       console.log("Transaction sent: ", hash);
       setTxHash(hash);
 
-      const { data } = await createMeme("1","1", memeUrl, "249577");
+      const { data } = await createMeme("1", "1", memeUrl, "249577");
       console.log("Create Meme data");
       console.log(data);
-      setMemeId(data.id)
+      setMemeId(data.id);
+      window.location.href =
+        "https://warpcast.com/~/compose?text=https://meme-cast.vercel.app/api/meme/" +
+        data.id;
     },
     onError: (error) => {
       console.log("ERROR");
@@ -58,18 +66,17 @@ const MemeEditor = () => {
 
   useEffect(() => {
     setImage(imageUrl);
-    (async function (){
+    (async function () {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
       const file = new File([blob], "fileName", { type: blob.type });
-      setUploadImage(file)
-    })()
-   
+      setUploadImage(file);
+    })();
   }, [imageUrl]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setUploadImage(file)
+    setUploadImage(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result);
@@ -158,7 +165,7 @@ const MemeEditor = () => {
   //       value: BigInt("0"),
   //     },
   //   });
-  
+
   // };
 
   const handleModalCancel = () => {
@@ -194,20 +201,19 @@ const MemeEditor = () => {
     window.location.href = "/";
   };
 
-
   const handleSubmit = async () => {
     setShowModal(true); // Show the modal when submit is clicked
-  
+
     // Create a new canvas
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-  
+
     const imageElement = document.getElementById("uploadedImage");
     const actualWidth = imageElement.naturalWidth;
     const actualHeight = imageElement.naturalHeight;
     canvas.width = actualWidth;
     canvas.height = actualHeight;
-  
+
     // Draw the original image onto the canvas after it's fully loaded
     const loadImagePromise = new Promise((resolve) => {
       if (imageElement.complete) {
@@ -220,13 +226,13 @@ const MemeEditor = () => {
         };
       }
     });
-  
+
     await loadImagePromise;
-  
+
     // Draw the text boxes onto the canvas
     const scaleX = actualWidth / imageElement.width;
     const scaleY = actualHeight / imageElement.height;
-  
+
     textBoxes.forEach((box) => {
       ctx.font = `${box.fontSize * scaleX}px ${box.font}`;
       ctx.fillStyle = box.color;
@@ -237,7 +243,7 @@ const MemeEditor = () => {
         (box.y + parseInt(box.fontSize)) * scaleY
       );
     });
-  
+
     // Draw the stickers onto the canvas
     await Promise.all(
       stickers.map((sticker) => {
@@ -257,11 +263,11 @@ const MemeEditor = () => {
         });
       })
     );
-  
+
     // Convert the canvas to a Blob
     canvas.toBlob(async (blob) => {
       const file = new File([blob], "editedImage.png", { type: "image/png" });
-  
+
       // Upload the edited image to IPFS
       const upload = await pinata.upload.file(file);
       const fileUrl =
@@ -271,7 +277,7 @@ const MemeEditor = () => {
         process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
       console.log(fileUrl);
       setMemeUrl(fileUrl);
-  
+
       // Trigger set template
       const data = getCreateMemeData("1", "1", fileUrl);
       if (chain.id !== alchemyAuraChain.id) {
@@ -288,11 +294,6 @@ const MemeEditor = () => {
       });
     }, "image/png");
   };
-
-  
-
-  
-  
 
   return (
     <div>
@@ -333,8 +334,6 @@ const MemeEditor = () => {
           <div className="ml-8 w-[70px] h-[70px]"></div>
         </div>
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-4">
-         
-
           <button
             onClick={addTextBox}
             className="btn btn-primary px-4 py-2 text-sm md:text-base"
@@ -390,7 +389,6 @@ const MemeEditor = () => {
               </option>
             ))}
           </select>
-
         </div>
 
         {/* Meme Layout Containerrr */}
@@ -482,15 +480,14 @@ const MemeEditor = () => {
           )}
         </div>
 
-        
         {image && (
-            <button
-              onClick={handleSubmit}
-              className="btn  btn-secondary mt-8 px-4 py-2 text-sm md:text-base"
-            >
-              Submit Meme
-            </button>
-          )}
+          <button
+            onClick={handleSubmit}
+            className="btn  btn-secondary mt-8 px-4 py-2 text-sm md:text-base"
+          >
+            Submit Meme
+          </button>
+        )}
         {/* Modal for form submission */}
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -506,7 +503,7 @@ const MemeEditor = () => {
                 <h2 className="text-2xl font-bold mb-6 text-black">
                   Creating Meme ⌛
                 </h2>
-                
+
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
@@ -535,13 +532,18 @@ const MemeEditor = () => {
                     ? `Transaction Success ✅ Click here to view 🔍`
                     : ""}
                 </button>
-               {memeId!="" && <Link
-                  className="btn btn-primary mt-4 w-full bg-black text-black"
-                  style={{ backgroundColor: "#000", color: "#fff" }}
-                 href={"https://warpcast.com/~/compose?text=https://meme-cast.vercel.app/api/meme/"+memeId} 
-                >
-                 Cast on Warpcast
-                </Link>}
+                {memeId != "" && (
+                  <Link
+                    className="btn btn-primary mt-4 w-full bg-black text-black"
+                    style={{ backgroundColor: "#000", color: "#fff" }}
+                    href={
+                      "https://warpcast.com/~/compose?text=https://meme-cast.vercel.app/api/meme/" +
+                      memeId
+                    }
+                  >
+                    Cast on Warpcast
+                  </Link>
+                )}
               </div>
             </div>
           </div>
