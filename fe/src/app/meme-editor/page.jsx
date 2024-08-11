@@ -55,9 +55,13 @@ const MemeEditor = () => {
   ];
 
   useEffect(() => {
-    if (imageUrl) {
-      setImage(imageUrl);
-    }
+    (async function (){
+      const response = await fetch(imagePath);
+      const blob = await response.blob();
+      const file = new File([blob], "fileName", { type: blob.type });
+      setUploadImage(file)
+    })()
+   
   }, [imageUrl]);
 
   const handleImageUpload = (e) => {
