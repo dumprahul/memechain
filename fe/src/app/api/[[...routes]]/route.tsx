@@ -109,7 +109,6 @@ app.frame("/meme/:id", async (c) => {
         </div>
       </div>
     ),
-    intents: [<Button.Link href={`/`}>Create Your own meme 🤪</Button.Link>],
   });
 });
 
