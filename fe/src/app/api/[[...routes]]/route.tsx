@@ -67,7 +67,7 @@ app.frame("/meme/:id", async (c) => {
             padding: "5px 10px",
             borderRadius: "5px",
             color: "white",
-            fontSize: "14px",
+            fontSize: "18px",
           }}
         >
           Created by
@@ -78,8 +78,8 @@ app.frame("/meme/:id", async (c) => {
               borderRadius: "50%",
             }}
             alt="Profile Icon"
-            width={20}
-            height={20}
+            width={30}
+            height={30}
           />
           <span style={{ marginLeft: "5px" }}>Profile Name</span>
         </div>
@@ -103,8 +103,8 @@ app.frame("/meme/:id", async (c) => {
               borderRadius: "50%",
             }}
             alt="Profile Icon"
-            width={20}
-            height={20}
+            width={40}
+            height={40}
           />
         </div>
       </div>
