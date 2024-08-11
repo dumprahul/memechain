@@ -5,11 +5,10 @@ import Navbar from "../../components/Navbar"; // Import the Navbar component
 import { useRouter } from "next/navigation"; // Import useRouter
 
 export default function Memes() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [allCards, setAllCards] = useState<any[]>([]);
   const [displayedCards, setDisplayedCards] = useState<any[]>([]);
 
-  // Define images and texts for each category
   const deadpoolCards = [
     { title: "", imageUrl: "/img_memes/dead.png", category: "Deadpool" },
     { title: "", imageUrl: "/img_memes/dead1.png", category: "Deadpool" },
@@ -28,21 +27,10 @@ export default function Memes() {
     { title: "", imageUrl: "/img_memes/ht2.png", category: "Hawk-Tuat" },
   ];
 
-  const drakeCards = [
-    { title: "Coming soon!", imageUrl: "", category: "Drake" },
-  ];
-
   // Combine all categories into a single list
-  const combinedCards = [
-    ...deadpoolCards,
-    ...wolverineCards,
-    ...hawkTuatCards,
-    ...drakeCards,
-  ];
+  const combinedCards = [...deadpoolCards, ...wolverineCards, ...hawkTuatCards];
 
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {}, []);
 
   useEffect(() => {
     // Shuffle and pick a random set of cards
@@ -70,7 +58,7 @@ export default function Memes() {
   };
 
   return (
-    <div className="h-screen bg-[#f5f589]">
+    <div className="min-h-screen bg-[#f5f589]">
       <Navbar />
       <div className="flex flex-col items-center  py-6">
         <div className="flex justify-between lg:space-x-24 md:space-x-12 sapce-x-6 items-center mb-6">
