@@ -16,11 +16,11 @@ const MemeEditor = () => {
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
 
   const stickerOptions = [
-    "src/assets/stickers/blunt_1_optimized.png",
-    "src/assets/stickers/dogedog_optimized.png",
-    "src/assets/stickers/laser_1_optimized.png",
-    "src/assets/stickers/sunglass_optimized.png",
-    "src/assets/stickers/vibecat_op.jpg",
+    "/stickers/blunt.png",
+    "/stickers/doge.png",
+    "/stickers/laser.png",
+    "/stickers/sunglass.png",
+    "/stickers/vibecat.png",
   ];
 
   useEffect(() => {
@@ -94,6 +94,13 @@ const MemeEditor = () => {
   const handleDeleteSticker = (index) => {
     setStickers(stickers.filter((_, i) => i !== index));
   };
+
+  const handleSubmit = () => {
+    // Add your submission logic here
+    console.log("Meme submitted!");
+    // You can use fetch or axios to send the meme data to your backend
+  };
+  
 
   const addSticker = (stickerSrc) => {
     setStickers([...stickers, { src: stickerSrc, x: 0, y: 0 }]);
@@ -197,16 +204,20 @@ const MemeEditor = () => {
 
           {image && (
             <button
-              onClick={handleDownload}
+            onClick={handleSubmit}
               className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
             >
-              Download Meme
+              Submit Meme
             </button>
           )}
         </div>
 
         {/* Meme Layout Container */}
-        <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center">
+        <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center"
+        style={{
+          width: '1000px',
+          height: '400px'
+        }}>
           {image ? (
             <div className="relative w-full h-full flex items-center justify-center">
               <img
