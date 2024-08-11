@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
@@ -11,7 +12,8 @@ const MemeEditor = () => {
   const [fontSize, setFontSize] = useState("40");
   const [textColor, setTextColor] = useState("#FFFFFF");
   const [stickers, setStickers] = useState([]);
-
+  const [memeId, setMemeId]=useState('')
+  const [memeUrl, setMemeUrl]=useState('')
   const [showModal, setShowModal] = useState(false); // State for controlling the modal
 
   const searchParams = useSearchParams();
@@ -248,14 +250,6 @@ const MemeEditor = () => {
             ))}
           </select>
 
-          {image && (
-            <button
-              onClick={handleSubmit}
-              className="btn  btn-primary  px-4 py-2 text-sm md:text-base"
-            >
-              Submit Meme
-            </button>
-          )}
         </div>
 
         {/* Meme Layout Containerrr */}
@@ -346,6 +340,16 @@ const MemeEditor = () => {
             </p>
           )}
         </div>
+
+        
+        {image && (
+            <button
+              onClick={handleSubmit}
+              className="btn  btn-secondary mt-8 px-4 py-2 text-sm md:text-base"
+            >
+              Submit Meme
+            </button>
+          )}
         {/* Modal for form submission */}
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -359,46 +363,86 @@ const MemeEditor = () => {
               </button>
               <div className="flex flex-col items-center gap-6">
                 <h2 className="text-2xl font-bold mb-6 text-black">
-                  Your Template has been created on-chain!
+                  Creating Template ⌛
                 </h2>
+                <label className="block text-black w-full">
+                  Enter Meme Category:
+                  <input
+                    type="text"
+                    className="modal-input mt-1 block w-full"
+                    value={memeCategory}
+                    onChange={(e) => {
+                      setMemeCatgeory(e.target.value);
+                    }}
+                  />
+                </label>
                 <button
                   type="button"
-                  className="btn btn-primary mt-4 w-full"
+                  className="btn btn-primary mt-4 w-full bg-black text-black"
                   style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {
-                    if (proposalMetadata.tokenImageUrl) {
-                      window.open(proposalMetadata.tokenImageUrl, "_blank");
+                  onClick={async () => {
+                    const upload = await pinata.upload.file(uploadedImage);
+                    const fileUrl =
+                      "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+                      upload.IpfsHash +
+                      "?pinataGatewayToken=" +
+                      process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+                    console.log(fileUrl);
+                    setTemplateUrl(fileUrl);
+                    // Trigger set template
+                    const data = getCreateTemplateData("1", fileUrl);
+                    if (chain.id != alchemyAuraChain.id) {
+                      setChain({
+                        chain: alchemyAuraChain,
+                      });
                     }
+                    sendUserOperation({
+                      uo: {
+                        target: MEMECAST_ADDRESS,
+                        data: data,
+                        value: BigInt("0"),
+                      },
+                    });
                   }}
+                  disabled={memeCategory == ""}
                 >
-                  {proposalMetadata.tokenImageUrl
-                    ? "Metadata Pinned in IPFS ✅ Click here to view 🎉"
-                    : "Minting your Token on IPFS....."}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary mt-4 w-full"
-                  style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {
-                    if (txHash) {
-                      const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
-                      window.open(explorerUrl, "_blank");
-                    }
-                  }}
-                >
-                  {txHash
-                    ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                    : "Your Transaction is getting placed....."}
+                  Submit ✅
                 </button>
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
                   style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={() => {}}
+                  disabled={memeUrl == ""}
+                  onClick={() => {
+                    window.location.href = memeUrl;
+                  }}
                 >
-                  {" "}
-                  Share On WarpCast!
+                  {memeUrl != ""
+                    ? `Pinned on IPFS✅ Click here to view template 📍`
+                    : ""}
                 </button>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-4 w-full bg-black text-black"
+                  style={{ backgroundColor: "#000", color: "#fff" }}
+                  disabled={txhash == ""}
+                  onClick={() => {
+                    window.location.href =
+                      "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/" +
+                      txhash;
+                  }}
+                >
+                  {txhash != ""
+                    ? `Transaction Success ✅ Click here to view 🔍`
+                    : ""}
+                </button>
+               {memeId!="" && <Link
+                  className="btn btn-primary mt-4 w-full bg-black text-black"
+                  style={{ backgroundColor: "#000", color: "#fff" }}
+                 href={"https://warpcast.com/~/compose?text=https://meme-cast.vercel.app/api/meme/"+memeId} 
+                >
+                 Cast on Warpcast
+                </Link>}
               </div>
             </div>
           </div>
