@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import getCreateMemeData from "@/utils/getCreateMemeData";
-import { useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
+import { useChain, useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
 import createMeme from "@/utils/supabase/write/createMeme";
 import { PinataSDK } from "pinata";
 
@@ -20,7 +20,7 @@ const MemeEditor = () => {
   const [memeId, setMemeId]=useState('')
   const [memeUrl, setMemeUrl]=useState('')
   const [showModal, setShowModal] = useState(false); // State for controlling the modal
-
+  const {chain, setChain}=useChain()
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
   const [txhash, setTxHash]=useState('')
