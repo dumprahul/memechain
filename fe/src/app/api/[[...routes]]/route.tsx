@@ -74,14 +74,14 @@ app.frame("/meme/:id", async (c) => {
           <img
             src="https://picsum.photos/200/200"
             style={{
-              marginLeft: "5px",
+              marginLeft: "8px",
               borderRadius: "50%",
             }}
             alt="Profile Icon"
             width={30}
             height={30}
           />
-          <span style={{ marginLeft: "5px" }}>Profile Name</span>
+          <span style={{ marginLeft: "8px" }}>Profile Name</span>
         </div>
         <div
           style={{
