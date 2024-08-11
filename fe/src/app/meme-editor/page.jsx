@@ -363,19 +363,8 @@ const MemeEditor = () => {
               </button>
               <div className="flex flex-col items-center gap-6">
                 <h2 className="text-2xl font-bold mb-6 text-black">
-                  Creating Template ⌛
+                  Creating Meme ⌛
                 </h2>
-                <label className="block text-black w-full">
-                  Enter Meme Category:
-                  <input
-                    type="text"
-                    className="modal-input mt-1 block w-full"
-                    value={memeCategory}
-                    onChange={(e) => {
-                      setMemeCatgeory(e.target.value);
-                    }}
-                  />
-                </label>
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
