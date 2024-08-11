@@ -11,25 +11,25 @@ export default function Memes() {
 
   // Define images and texts for each category
   const deadpoolCards = [
-    { title: "Deadpool 1", imageUrl: "/img_memes/dead.png", category: "Deadpool" },
-    { title: "Deadpool 2", imageUrl: "/img_memes/dead1.png", category: "Deadpool" },
-    { title: "Deadpool 3", imageUrl: "/img_memes/dead2.png", category: "Deadpool" },
+    { title: "Deadpool 1", imageUrl: "/memes/d1.jpg", category: "Deadpool" },
+    { title: "Deadpool 2", imageUrl: "/memes/d2.jpg", category: "Deadpool" },
+    { title: "Deadpool 3", imageUrl: "/memes/d3.jpg", category: "Deadpool" },
   ];
 
   const wolverineCards = [
-    { title: "Wolverine 1", imageUrl: "/img_memes/wolv.png", category: "Wolverine" },
-    { title: "Wolverine 2", imageUrl: "/img_memes/wolv2.png", category: "Wolverine" },
-    { title: "Wolverine 3", imageUrl: "/img_memes/wolv4.png", category: "Wolverine" },
-    { title: "Wolverine 4", imageUrl: "/img_memes/wolv3.png", category: "Wolverine" },
+    { title: "Wolverine 1", imageUrl: "/memes/w1.jpg", category: "Wolverine" },
+    { title: "Wolverine 2", imageUrl: "/memes/w2.jpg", category: "Wolverine" },
+    { title: "Wolverine 3", imageUrl: "/memes/w3.jpg", category: "Wolverine" },
+    { title: "Wolverine 4", imageUrl: "/memes/w4.jpg", category: "Wolverine" },
   ];
 
   const hawkTuatCards = [
-    { title: "Hawk-Tuat 1", imageUrl: "/img_memes/ht1.png", category: "Hawk-Tuat" },
-    { title: "Hawk-Tuat 2", imageUrl: "/img_memes/ht2.png", category: "Hawk-Tuat" },
+    { title: "Hawk-Tuat 1", imageUrl: "/memes/h1.jpg", category: "Hawk-Tuat" },
+    { title: "Hawk-Tuat 2", imageUrl: "/memes/h2.jpg", category: "Hawk-Tuat" },
   ];
 
   const drakeCards = [
-    { title: "Coming soon!", imageUrl: "", category: "Drake" },
+    { title: "Drake 1", imageUrl: "/memes/dk1.jpg", category: "Drake" },
   ];
 
   // Combine all categories into a single list
@@ -69,16 +69,20 @@ export default function Memes() {
     <div>
       <Navbar />
       <div className="flex flex-col items-center bg-[#f5f589] py-6">
-        <div className="flex items-center mb-6">
-          <button onClick={handleBackClick} className="mr-8 p-2">
+        <div className="flex justify-between lg:space-x-24 md:space-x-12 sapce-x-6 items-center mb-6">
+          <button
+            onClick={handleBackClick}
+            className="md:ml-8 ml-4 my-2  rounded-full"
+          >
             <svg
               fill="#000000"
-              height="40"
-              width="40"
+              height="70"
+              width="70"
               version="1.1"
               id="Capa_1"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 219.151 219.151"
+              className="lg:w-[100%] md:w-[80%] w-[60%]"
             >
               <g>
                 <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z" />
@@ -86,14 +90,15 @@ export default function Memes() {
               </g>
             </svg>
           </button>
-          <div className="text-center mr-4">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black flex items-center">
-             MEMES 🛠️💣
+          <div className="text-center mr-8">
+            <h1 className=" text-4xl md:text-6xl text-center font-bold mb-4 text-black ">
+              MEMES 😎
             </h1>
             <p className="text-lg md:text-2xl max-w-2xl mx-auto text-black">
-              Get to know some memes made on MEMECAST!
+              Check out the funniest memes in Farcaster! 😄
             </p>
           </div>
+          <div className="ml-8 w-[70px] h-[70px]"></div>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 mb-6">
