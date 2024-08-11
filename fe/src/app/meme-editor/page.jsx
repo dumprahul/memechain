@@ -37,6 +37,7 @@ const MemeEditor = () => {
       const { data } = await createMeme("1","1", memeUrl, "249577");
       console.log("Create Meme data");
       console.log(data);
+      setMemeId(data.id)
     },
     onError: (error) => {
       console.log("ERROR");
