@@ -1,4 +1,27 @@
+import { defineAlchemyChain } from "@account-kit/infra";
+import { defineChain } from "viem";
+
 export const MEMECAST_ADDRESS = "0x16CBC6Cb38D19B73A3b545109c70b2031d20EA37";
+const auraChain = defineChain({
+  id: 88759,
+  name: "Aura Chain",
+  nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    default: { http: ["https://rpc-aurachain-kooclv2ptj.t.conduit.xyz"] },
+  },
+  blockExplorers: {
+    default: {
+      name: "Blockscout Explorer",
+      url: "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/",
+    },
+  },
+  contracts: {},
+});
+export const alchemyAuraChain = defineAlchemyChain({
+  chain: auraChain,
+  rpcBaseUrl: "",
+});
+
 export const MEMECAST_ABI = [
   {
     inputs: [],

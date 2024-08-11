@@ -1,26 +1,8 @@
 import { AlchemyAccountsUIConfig, createConfig } from "@account-kit/react";
-import { baseSepolia, defineAlchemyChain } from "@account-kit/infra";
-import { defineChain } from "viem";
+import { baseSepolia } from "@account-kit/infra";
 import { QueryClient } from "@tanstack/react-query";
-const auraChain = defineChain({
-  id: 88759,
-  name: "Aura Chain",
-  nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    default: { http: ["https://rpc-aurachain-kooclv2ptj.t.conduit.xyz"] },
-  },
-  blockExplorers: {
-    default: {
-      name: "Blockscout Explorer",
-      url: "https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/",
-    },
-  },
-  contracts: {},
-});
-const alchemyAuraChain = defineAlchemyChain({
-  chain: auraChain,
-  rpcBaseUrl: "",
-});
+import { alchemyAuraChain } from "./constants";
+
 const uiConfig: AlchemyAccountsUIConfig = {
   illustrationStyle: "outline",
   auth: {
