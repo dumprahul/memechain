@@ -35,6 +35,7 @@ const Hero = () => {
   const { openAuthModal } = useAuthModal();
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [ipfsUrl, setIpfsUrl] = useState<string | null>(null); // New state for storing IPFS URL
   const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
     client,
@@ -216,6 +217,7 @@ const Hero = () => {
                         ...proposalMetadata,
                         tokenImageUrl: fileUrl,
                       });
+                      setIsImageUploaded(true); // Update the state to indicate the image is uploaded
                     }
                   }}
                 />
@@ -224,25 +226,26 @@ const Hero = () => {
                 type="submit"
                 className="btn btn-primary mt-4 w-full"
                 style={{ backgroundColor: "#f5f589", color: "#000" }}
+                disabled={!isImageUploaded} // Disable button if image is not uploaded
               >
                 Submit ✅
               </button>
               <button
                   type="button"
                   className="btn btn-primary mt-4 w-full"
-                  style={{ backgroundColor: "#f5f589", color: "#000" }}
+                  style={{ backgroundColor: "#000", color: "#fff" }}
                   onClick={() => {
                     if (proposalMetadata.tokenImageUrl) {
                       window.open(proposalMetadata.tokenImageUrl, "_blank");
                     }
                   }}
                 >
-                  {proposalMetadata.tokenImageUrl ? "Click here to View the Minted Image Token on IPFS 🎉" : "Minting your Token on IPFS....."}
+                  {proposalMetadata.tokenImageUrl ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : "Minting your Token on IPFS....."}
               </button>
               <button
                   type="button"
                   className="btn btn-primary mt-4 w-full"
-                  style={{ backgroundColor: "#f5f589", color: "#000" }}
+                  style={{ backgroundColor: "#000", color: "#fff" }}
                   onClick={() => {
                     if (txHash) {
                       const explorerUrl = `https://explorer-aurachain-kooclv2ptj.t.conduit.xyz/tx/${txHash}`;
@@ -251,7 +254,7 @@ const Hero = () => {
                   }}
                 >
                   {txHash 
-                    ? `Click here to View the Transaction on Explorer 🎉`
+                    ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
                     : "Your Transaction is getting place....."}
               </button>
 
