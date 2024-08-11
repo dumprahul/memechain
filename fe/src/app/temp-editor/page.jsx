@@ -100,7 +100,7 @@ const MemeEditor = () => {
     console.log("Meme submitted!");
     // You can use fetch or axios to send the meme data to your backend
   };
-  
+
 
   const addSticker = (stickerSrc) => {
     setStickers([...stickers, { src: stickerSrc, x: 0, y: 0 }]);
@@ -212,7 +212,7 @@ const MemeEditor = () => {
           )}
         </div>
 
-        {/* Meme Layout Container */}
+        {/* Meme Layout Containerr */}
         <div
           className="relative border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center"
           style={{

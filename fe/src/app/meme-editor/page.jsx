@@ -212,7 +212,7 @@ const MemeEditor = () => {
           )}
         </div>
 
-        {/* Meme Layout Container */}
+        {/* Meme Layout Containerrr */}
         <div className="relative w-full max-w-screen-lg h-96 md:h-[600px] border-2 border-gray-300 p-4 md:p-8 rounded-lg bg-white flex items-center justify-center"
         style={{
           width: '1000px',
