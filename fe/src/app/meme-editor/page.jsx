@@ -22,6 +22,7 @@ const MemeEditor = () => {
 
   const searchParams = useSearchParams();
   const imageUrl = searchParams.get("imageUrl"); // Get the imageUrl from query parameters
+  const [txhash, setTxHash]=useState('')
   const user = useUser();
   const { client } = useSmartAccountClient({ type: "LightAccount" });
   const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
