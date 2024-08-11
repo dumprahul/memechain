@@ -5,7 +5,7 @@ import { handle } from 'frog/next';
 import { serveStatic } from 'frog/serve-static';
 
 const app = new Frog({
-  title: 'Dropfify',
+  title: 'Memecast',
   assetsPath: '/',
   basePath: '/api',
   imageOptions: {
