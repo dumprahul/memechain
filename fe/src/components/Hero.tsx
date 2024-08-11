@@ -86,10 +86,10 @@ const Hero = () => {
               Propose Memes
             </button>
             <Link href={"/templates"} className="btn btn-primary">
-              Create Template
+              Create Memes
             </Link>
             <Link href={"/meme-editor"} className="btn btn-primary">
-              Create Meme
+              Create Templates
             </Link>
           </div>
         </div>

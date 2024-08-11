@@ -11,25 +11,25 @@ export default function Memes() {
 
   // Define images and texts for each category
   const deadpoolCards = [
-    { title: "Deadpool 1", imageUrl: "/memes/d1.jpg", category: "Deadpool" },
-    { title: "Deadpool 2", imageUrl: "/memes/d2.jpg", category: "Deadpool" },
-    { title: "Deadpool 3", imageUrl: "/memes/d3.jpg", category: "Deadpool" },
+    { title: "Deadpool 1", imageUrl: "/img_templates/d1.png", category: "Deadpool" },
+    { title: "Deadpool 2", imageUrl: "/img_templates/d2.png", category: "Deadpool" },
+    { title: "Deadpool 3", imageUrl: "/img_templates/d3.png", category: "Deadpool" },
   ];
 
   const wolverineCards = [
-    { title: "Wolverine 1", imageUrl: "/memes/w1.jpg", category: "Wolverine" },
-    { title: "Wolverine 2", imageUrl: "/memes/w2.jpg", category: "Wolverine" },
-    { title: "Wolverine 3", imageUrl: "/memes/w3.jpg", category: "Wolverine" },
-    { title: "Wolverine 4", imageUrl: "/memes/w4.jpg", category: "Wolverine" },
+    { title: "Wolverine 1", imageUrl: "/img_templates/w1.png", category: "Wolverine" },
+    { title: "Wolverine 2", imageUrl: "/img_templates/w2.png", category: "Wolverine" },
+    { title: "Wolverine 3", imageUrl: "/img_templates/w3.png", category: "Wolverine" },
+    { title: "Wolverine 4", imageUrl: "/img_templates/w4.png", category: "Wolverine" },
   ];
 
   const hawkTuatCards = [
-    { title: "Hawk-Tuat 1", imageUrl: "/memes/h1.jpg", category: "Hawk-Tuat" },
-    { title: "Hawk-Tuat 2", imageUrl: "/memes/h2.jpg", category: "Hawk-Tuat" },
+    { title: "Hawk-Tuat 1", imageUrl: "/img_templates/ht1.png", category: "Hawk-Tuat" },
+    { title: "Hawk-Tuat 2", imageUrl: "/img_templates/ht2.png", category: "Hawk-Tuat" },
   ];
 
   const drakeCards = [
-    { title: "Drake 1", imageUrl: "/memes/dk1.jpg", category: "Drake" },
+    { title: "Drake 1", imageUrl: "/img_templates/dr1.png", category: "Drake" },
   ];
 
   // Combine all categories into a single list
