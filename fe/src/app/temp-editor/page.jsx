@@ -281,7 +281,7 @@ const MemeEditor = () => {
                     </h2>
                     <button
                               type="button"
-                              className="btn btn-primary mt-4 w-full"
+                              className="btn btn-primary mt-4 w-full bg-black text-black"
                               style={{ backgroundColor: "#000", color: "#fff" }}
                               onClick={() => {
                                 if (proposalMetadata.tokenImageUrl) {
@@ -293,7 +293,7 @@ const MemeEditor = () => {
                     </button>
                     <button
                               type="button"
-                              className="btn btn-primary mt-4 w-full"
+                              className="btn btn-primary mt-4 w-full bg-black text-black"
                               style={{ backgroundColor: "#000", color: "#fff" }}
                               onClick={() => {
                                 if (txHash) {
@@ -305,6 +305,15 @@ const MemeEditor = () => {
                               {txHash 
                                 ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
                                 : "Your Transaction is getting placed....."}
+                    </button>
+                    <button
+                              type="button"
+                              className="btn btn-primary mt-4 w-full bg-black text-black"
+                              style={{ backgroundColor: "#000", color: "#fff" }}
+                              onClick={() => {
+                  
+                              }}
+                            > Share On WarpCast!       
                     </button>
                   </div>
                 </div>

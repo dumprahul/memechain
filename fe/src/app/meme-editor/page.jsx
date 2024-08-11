@@ -358,6 +358,15 @@ const MemeEditor = () => {
                                 ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
                                 : "Your Transaction is getting placed....."}
                     </button>
+                    <button
+                              type="button"
+                              className="btn btn-primary mt-4 w-full bg-black text-black"
+                              style={{ backgroundColor: "#000", color: "#fff" }}
+                              onClick={() => {
+                  
+                              }}
+                            > Share On WarpCast!       
+                    </button>
                   </div>
                 </div>
               </div>
