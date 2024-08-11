@@ -259,9 +259,9 @@ const Hero = () => {
                       window.open(explorerUrl, "_blank");
                     }
                   }}
-                  disabled={txHash==""}
+                  disabled={txHash=="" || txHash==null}
                 >
-                  {txHash !=""
+                  {txHash !="" && txHash !=null
                     ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
                     : ""}
               </button>
