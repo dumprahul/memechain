@@ -4,6 +4,7 @@ import { Rnd } from "react-rnd";
 import Navbar from "../../components/Navbar";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import getCreateMemeData from "@/utils/getCreateMemeData";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
@@ -99,13 +100,30 @@ const MemeEditor = () => {
     setStickers(stickers.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     setShowModal(true); // Show the modal when submit is clicked
-  };
-
-  const handleModalSubmit = () => {
-    console.log("Meme submitted!");
-    setShowModal(false); // Close the modal after submission
+    const upload = await pinata.upload.file(uploadedImage);
+    const fileUrl =
+      "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+      upload.IpfsHash +
+      "?pinataGatewayToken=" +
+      process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+    console.log(fileUrl);
+    setMemeUrl(fileUrl);
+    // Trigger set template
+    const data = getCreateMemeData("1","1", fileUrl);
+    if (chain.id != alchemyAuraChain.id) {
+      setChain({
+        chain: alchemyAuraChain,
+      });
+    }
+    sendUserOperation({
+      uo: {
+        target: MEMECAST_ADDRESS,
+        data: data,
+        value: BigInt("0"),
+      },
+    });
   };
 
   const handleModalCancel = () => {
@@ -365,38 +383,7 @@ const MemeEditor = () => {
                 <h2 className="text-2xl font-bold mb-6 text-black">
                   Creating Meme ⌛
                 </h2>
-                <button
-                  type="button"
-                  className="btn btn-primary mt-4 w-full bg-black text-black"
-                  style={{ backgroundColor: "#000", color: "#fff" }}
-                  onClick={async () => {
-                    const upload = await pinata.upload.file(uploadedImage);
-                    const fileUrl =
-                      "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
-                      upload.IpfsHash +
-                      "?pinataGatewayToken=" +
-                      process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
-                    console.log(fileUrl);
-                    setTemplateUrl(fileUrl);
-                    // Trigger set template
-                    const data = getCreateTemplateData("1", fileUrl);
-                    if (chain.id != alchemyAuraChain.id) {
-                      setChain({
-                        chain: alchemyAuraChain,
-                      });
-                    }
-                    sendUserOperation({
-                      uo: {
-                        target: MEMECAST_ADDRESS,
-                        data: data,
-                        value: BigInt("0"),
-                      },
-                    });
-                  }}
-                  disabled={memeCategory == ""}
-                >
-                  Submit ✅
-                </button>
+                
                 <button
                   type="button"
                   className="btn btn-primary mt-4 w-full bg-black text-black"
