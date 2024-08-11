@@ -40,6 +40,10 @@ export default function Memes() {
     ...drakeCards,
   ];
 
+  useEffect(()=>{
+
+  },[])
+
   useEffect(() => {
     // Shuffle and pick a random set of cards
     const shuffledCards = combinedCards
@@ -66,9 +70,9 @@ export default function Memes() {
   };
 
   return (
-    <div>
+    <div className="h-screen bg-[#f5f589]">
       <Navbar />
-      <div className="flex flex-col items-center bg-[#f5f589] py-6">
+      <div className="flex flex-col items-center  py-6">
         <div className="flex justify-between lg:space-x-24 md:space-x-12 sapce-x-6 items-center mb-6">
           <button
             onClick={handleBackClick}

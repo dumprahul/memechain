@@ -8,7 +8,10 @@ export default async function getAllMemes(
   try {
     let { data: memes, error } = await supabase
       .from("memes")
-      .select(`id,image`)
+      .select(`*,
+        category (
+          label
+        )`)
     console.log(memes);
     if (memes == null || memes?.length == 0)
       return { success: false, data: "Meme not found" };

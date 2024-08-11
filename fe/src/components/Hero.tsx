@@ -8,8 +8,10 @@ import {
   useSendUserOperation,
 } from "@account-kit/react";
 import { PinataSDK } from "pinata";
-import { MEMECAST_ADDRESS } from "@/utils/constants";
+import { alchemyAuraChain, MEMECAST_ADDRESS } from "@/utils/constants";
 import getCreateMemeProposalData from "@/utils/getCreateMemeProposalData";
+import { createAlchemyPublicRpcClient } from "@account-kit/infra";
+import createCategory from "@/utils/supabase/write/createCategory";
 
 type ProposalMetadata = {
   name: string;
@@ -40,9 +42,13 @@ const Hero = () => {
   const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
     client,
     waitForTxn: true,
-    onSuccess: ({ hash, request }) => {
+    onSuccess: async ({ hash, request }) => {
       console.log("Transaction sent: ", hash);
       setTxHash(hash);
+      
+      const {data}=await createCategory(proposalMetadata.name, user?.address as string, proposalMetadataUrl)
+      console.log("Create Category data")
+      console.log(data)
     },
     onError: (error) => {
       console.log("ERROR");
@@ -239,8 +245,9 @@ const Hero = () => {
                       window.open(proposalMetadata.tokenImageUrl, "_blank");
                     }
                   }}
+                  disabled={proposalMetadata.tokenImageUrl==""}
                 >
-                  {proposalMetadata.tokenImageUrl ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : "Minting your Token on IPFS....."}
+                  {proposalMetadata.tokenImageUrl !="" ? "Metadata Pinned in IPFS ✅ Click here to view 🎉" : ""}
               </button>
               <button
                   type="button"
@@ -252,10 +259,11 @@ const Hero = () => {
                       window.open(explorerUrl, "_blank");
                     }
                   }}
+                  disabled={txHash=="" || txHash==null}
                 >
-                  {txHash 
+                  {txHash !="" && txHash !=null
                     ? `Transaction Confirmed ✅ Click here to view on explore 🎉`
-                    : "Your Transaction is getting placed....."}
+                    : ""}
               </button>
 
             </form>
