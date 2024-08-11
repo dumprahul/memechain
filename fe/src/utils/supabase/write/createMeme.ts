@@ -11,7 +11,7 @@ export default async function createMeme(
 ): Promise<{ success: boolean; data: any }> {
   try {
     const { data: meme, error } = await supabase
-    .from("meme")
+    .from("memes")
     .insert([{
         created_by: createdBy, image, template: templateId, category: categoryId
     }])
