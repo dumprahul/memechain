@@ -8,6 +8,7 @@ import getCreateMemeData from "@/utils/getCreateMemeData";
 import { useChain, useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
 import createMeme from "@/utils/supabase/write/createMeme";
 import { PinataSDK } from "pinata";
+import { alchemyAuraChain } from "@/utils/constants";
 
 const MemeEditor = () => {
   const [image, setImage] = useState(null);
