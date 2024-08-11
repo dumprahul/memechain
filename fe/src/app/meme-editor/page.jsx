@@ -134,31 +134,32 @@ const MemeEditor = () => {
     setStickers(stickers.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = async() => {
-    setShowModal(true); // Show the modal when submit is clicked
-    const upload = await pinata.upload.file(uploadImage);
-    const fileUrl =
-      "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
-      upload.IpfsHash +
-      "?pinataGatewayToken=" +
-      process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
-    console.log(fileUrl);
-    setMemeUrl(fileUrl);
-    // Trigger set template
-    const data = getCreateMemeData("1","1", fileUrl);
-    if (chain.id != alchemyAuraChain.id) {
-      setChain({
-        chain: alchemyAuraChain,
-      });
-    }
-    sendUserOperation({
-      uo: {
-        target: MEMECAST_ADDRESS,
-        data: data,
-        value: BigInt("0"),
-      },
-    });
-  };
+  // const handleSubmit = async() => {
+  //   setShowModal(true); // Show the modal when submit is clicked
+  //   const upload = await pinata.upload.file(uploadImage);
+  //   const fileUrl =
+  //     "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+  //     upload.IpfsHash +
+  //     "?pinataGatewayToken=" +
+  //     process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+  //   console.log(fileUrl);
+  //   setMemeUrl(fileUrl);
+  //   // Trigger set template
+  //   const data = getCreateMemeData("1","1", fileUrl);
+  //   if (chain.id != alchemyAuraChain.id) {
+  //     setChain({
+  //       chain: alchemyAuraChain,
+  //     });
+  //   }
+  //   sendUserOperation({
+  //     uo: {
+  //       target: MEMECAST_ADDRESS,
+  //       data: data,
+  //       value: BigInt("0"),
+  //     },
+  //   });
+  
+  // };
 
   const handleModalCancel = () => {
     setShowModal(false); // Close the modal without submission
@@ -192,6 +193,106 @@ const MemeEditor = () => {
   const handleBackClick = () => {
     window.location.href = "/";
   };
+
+
+  const handleSubmit = async () => {
+    setShowModal(true); // Show the modal when submit is clicked
+  
+    // Create a new canvas
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+  
+    const imageElement = document.getElementById("uploadedImage");
+    const actualWidth = imageElement.naturalWidth;
+    const actualHeight = imageElement.naturalHeight;
+    canvas.width = actualWidth;
+    canvas.height = actualHeight;
+  
+    // Draw the original image onto the canvas after it's fully loaded
+    const loadImagePromise = new Promise((resolve) => {
+      if (imageElement.complete) {
+        ctx.drawImage(imageElement, 0, 0, actualWidth, actualHeight);
+        resolve();
+      } else {
+        imageElement.onload = () => {
+          ctx.drawImage(imageElement, 0, 0, actualWidth, actualHeight);
+          resolve();
+        };
+      }
+    });
+  
+    await loadImagePromise;
+  
+    // Draw the text boxes onto the canvas
+    const scaleX = actualWidth / imageElement.width;
+    const scaleY = actualHeight / imageElement.height;
+  
+    textBoxes.forEach((box) => {
+      ctx.font = `${box.fontSize * scaleX}px ${box.font}`;
+      ctx.fillStyle = box.color;
+      ctx.textAlign = "center";
+      ctx.fillText(
+        box.text,
+        box.x * scaleX,
+        (box.y + parseInt(box.fontSize)) * scaleY
+      );
+    });
+  
+    // Draw the stickers onto the canvas
+    await Promise.all(
+      stickers.map((sticker) => {
+        return new Promise((resolve) => {
+          const stickerImage = new Image();
+          stickerImage.src = sticker.src;
+          stickerImage.onload = () => {
+            ctx.drawImage(
+              stickerImage,
+              sticker.x * scaleX,
+              sticker.y * scaleY,
+              stickerImage.width * scaleX,
+              stickerImage.height * scaleY
+            );
+            resolve();
+          };
+        });
+      })
+    );
+  
+    // Convert the canvas to a Blob
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], "editedImage.png", { type: "image/png" });
+  
+      // Upload the edited image to IPFS
+      const upload = await pinata.upload.file(file);
+      const fileUrl =
+        "https://amethyst-impossible-ptarmigan-368.mypinata.cloud/ipfs/" +
+        upload.IpfsHash +
+        "?pinataGatewayToken=" +
+        process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY;
+      console.log(fileUrl);
+      setMemeUrl(fileUrl);
+  
+      // Trigger set template
+      const data = getCreateMemeData("1", "1", fileUrl);
+      if (chain.id !== alchemyAuraChain.id) {
+        setChain({
+          chain: alchemyAuraChain,
+        });
+      }
+      sendUserOperation({
+        uo: {
+          target: MEMECAST_ADDRESS,
+          data: data,
+          value: BigInt("0"),
+        },
+      });
+    }, "image/png");
+  };
+
+  
+
+  
+  
 
   return (
     <div>
